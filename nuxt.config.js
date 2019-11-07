@@ -1,3 +1,4 @@
+import path from 'path'
 
 export default {
   mode: 'universal',
@@ -22,8 +23,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  css: ['~/assets/scss/tailwind.scss'],
   /*
   ** Plugins to load before mounting the App
   */
@@ -41,7 +41,8 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'nuxt-purgecss'
   ],
   /*
   ** Axios module configuration
@@ -56,7 +57,25 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    extractCSS: true,
+    postcss: {
+      plugins: {
+        tailwindcss: path.resolve(__dirname, './tailwind.config.js')
+      }
+    },
     extend (config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
+  },
+  purgeCSS: {
+    mode: 'postcss'
   }
 }
