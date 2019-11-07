@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        JobHuntBuddy.co
+        Welcome to JobHuntBuddy.co
       </h1>
       <h2 class="subtitle">
         Helping you manage your job hunt by tracking leads, applications, and your CV resources
