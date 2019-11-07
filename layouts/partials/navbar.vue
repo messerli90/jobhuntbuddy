@@ -1,9 +1,9 @@
 <template>
   <header class="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
     <div class="flex items-center justify-between px-4 py-3 sm:p-0 bg-gray-900">
-      <div class="text-gray-200 text-xl font-bold">
+      <nuxt-link to="/" class="text-gray-200 text-xl font-bold">
         Job<span class="font-thin">Hunt</span>Buddy<span class="font-thin">.co</span>
-      </div>
+      </nuxt-link>
       <div class="sm:hidden">
         <button type="button" class="block text-gray-500 hover:text-white focus:text-white" @click="isOpen = !isOpen">
           <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
@@ -22,7 +22,9 @@
       </div>
     </div>
     <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4 sm:flex sm:p-0">
-      <a href="#" class="block px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Manage Applications</a>
+      <nuxt-link to="leads" class="block px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">
+        Manage Applications
+      </nuxt-link>
       <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Jobs</a>
       <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Resources</a>
     </div>
