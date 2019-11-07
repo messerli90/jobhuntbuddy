@@ -1,27 +1,12 @@
 <template>
   <div class="container">
-    <div>
-      <h1 class="title">
+    <div class="bg-gray-300 mt-2 md:mt-6 py-6 md:py-12 px-3 md:px-6 sm:rounded-lg">
+      <h1 class="text-4xl font-semibold pb-6">
         Welcome to JobHuntBuddy.co
       </h1>
-      <h2 class="subtitle">
+      <h2 class="text-xl font-light">
         Helping you manage your job hunt by tracking leads, applications, and your CV resources
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="btn"
-        >
-          GitHub
-        </a>
       </div>
     </div>
   </div>

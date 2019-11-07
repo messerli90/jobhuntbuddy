@@ -2,6 +2,12 @@
 
 > Helping you manage your job hunt by tracking leads, applications, and your CV resources
 
+## About the Project
+
+> :construction: :construction: :construction: JobHuntBuddy is Work in Progress
+
+JHB is built using Nuxt.js which is a framework for building Vue.js applications.
+
 ## Build Setup
 
 ``` bash
@@ -18,5 +24,3 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
