@@ -23,11 +23,12 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['~/assets/scss/tailwind.scss'],
+  css: ['~/assets/scss/tailwind.scss', '~/assets/scss/main.scss'],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/Uuid'
   ],
   /*
   ** Nuxt.js dev-modules

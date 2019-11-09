@@ -1,56 +1,67 @@
+import { uuid } from 'vue-uuid'
+
 export const state = () => ({
   list: [
     {
+      uuid: uuid.v1(),
       companyName: 'Stripe',
       jobTitle: 'Senior PHP Developer',
       status: 'application sent',
-      companyWebsite: 'https://stripe.com'
+      companyWebsite: 'https://stripe.com',
+      listingWebsite: 'https://stripe.com/careers',
+      contactName: 'Nicole Samsung'
     },
     {
+      uuid: uuid.v1(),
       companyName: 'NomadList',
       status: 'rejected',
       companyWebsite: 'https://nomadlist.com'
     },
     {
+      uuid: uuid.v1(),
       jobTitle: 'Q/A Analyst',
       status: 'application sent'
     }
-  ],
-  currentLead: null
+  ]
 })
 
 export const mutations = {
   add (state, lead) {
     state.list.push(lead)
   },
-  setCurrentLead (state, lead) {
-    state.currentLead = lead
+  update (state, lead) {
+    state.list = [
+      ...state.list.map(item => item.uuid !== lead.uuid
+        ? item : {
+          ...item,
+          ...lead
+        }
+      )
+    ]
   }
 }
 
 export const getters = {
-  getAll (state) {
+  all (state) {
     return state.list
-  },
-  getCurrentLead (state) {
-    return state.currentLead
   }
 }
 
 export const actions = {
-  getLeads ({ state }) {
-    return state.list
-  },
-  setCurrentLead ({ commit }, lead) {
-    commit('setCurrentLead', lead)
-  },
-  clearCurrentLead ({ commit }) {
-    commit('setCurrentLead', null)
-  },
-  createLead ({ commit }, data) {
-    const lead = {
-      companyName: data.name
+  saveLead ({ commit }, lead) {
+    if (lead.uuid) {
+      commit('update', lead)
+    } else {
+      lead.uuid = uuid.v1()
+      commit('add', lead)
     }
-    commit('add', lead)
   }
+}
+
+export const EMPTY_LEAD = {
+  uuid: null,
+  companyName: null,
+  jobTitle: null,
+  status: null,
+  companyWebsite: null
 }

@@ -1,9 +1,9 @@
 <template>
-  <div class="p-6">
+  <div class="">
     <div class="flex justify-between items-center">
       <div>
         <div id="companyName" class="text-2xl text-gray-900">
-          <h1 v-if="hasCompanyName">
+          <h1 v-if="!!lead.companyName">
             {{ lead.companyName }}
           </h1>
           <h1 v-else class="text-gray-600">
@@ -11,7 +11,7 @@
           </h1>
         </div>
         <div id="jobTitle" class="text-lg text-gray-800">
-          <h2 v-if="hasjobTitle">
+          <h2 v-if="!!lead.jobTitle">
             {{ lead.jobTitle }}
           </h2>
           <h2 v-else class="text-gray-600">
@@ -19,21 +19,48 @@
           </h2>
         </div>
       </div>
-      <div>
-        <div id="companyWebsite" class="text-gray-800 flex flex-col items-center">
-          <h1 class="text-gray-900 text-lg">
-            Company Website
-          </h1>
-          <p v-if="hasCompanyWebsite">
+      <div class="items-center">
+        <div v-if="!!lead.companyWebsite" id="companyWebsite" class="py-1 text-gray-800 flex flex-col items-center text-sm">
+          <p>
             <a :href="lead.companyWebsite" class="text-blue-800">{{ lead.companyWebsite }}</a>
           </p>
-          <p v-else class="text-gray-600">
-            No website
+          <p class="text-gray-900 text-xs">
+            Company Website
+          </p>
+        </div>
+        <div v-if="!!lead.listingWebsite" id="listingWebsite" class="py-1 text-gray-800 flex flex-col items-center text-sm">
+          <p>
+            <a :href="lead.listingWebsite" class="text-blue-800">{{ lead.listingWebsite }}</a>
+          </p>
+          <p class="text-gray-900 text-xs">
+            Company Website
           </p>
         </div>
       </div>
       <div>
-        <StatusTag :status="lead.status" class="text-sm"/>
+        <StatusTag v-if="lead.status" :status="lead.status" class="text-sm" />
+      </div>
+    </div>
+    <div class="py-2">
+      <hr />
+    </div>
+    <div class="flex flex-row py-2">
+      <div class="w-full">
+        <dl>
+          <div v-show="lead.contactName">
+            <dt class="text-xs text-gray-700">
+              Contact Name
+            </dt>
+            <dd>
+              {{ lead.contactName }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div class="w-full">
+        <h3 class="text-lg">
+          Notes
+        </h3>
       </div>
     </div>
   </div>
@@ -41,19 +68,19 @@
 
 <script>
 import StatusTag from '~/components/statusTag'
+
 export default {
-  props: ['lead'],
   components: { StatusTag },
-  computed: {
-    hasCompanyName () {
-      return !!this.lead.companyName
-    },
-    hasjobTitle () {
-      return !!this.lead.jobTitle
-    },
-    hasCompanyWebsite () {
-      return !!this.lead.companyWebsite
+  props: {
+    lead: {
+      type: Object,
+      required: true
     }
-  }
+  },
+  computed: {},
+  mounted () {
+    // console.log(EMPTY_LEAD)
+  },
+  methods: {}
 }
 </script>

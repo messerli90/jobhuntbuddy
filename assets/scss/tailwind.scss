@@ -1,12 +1,23 @@
 @tailwind base;  
 @tailwind components; 
 
+html {
+  @apply bg-gray-300;
+}
+
 .btn {
-  @apply bg-red-500 py-2 px-4 rounded text-white;
+  @apply bg-blue-500 py-2 px-4 rounded text-white;
 }
 
 .btn:hover {
-  @apply bg-red-700;
+  @apply bg-blue-700;
+}
+
+.text-input {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
+}
+.text-input:focus {
+  @apply outline-none shadow-outline;
 }
 
 @tailwind utilities;

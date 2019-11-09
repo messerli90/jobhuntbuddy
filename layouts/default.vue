@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 h-screen">
+  <div>
     <NavBar />
     <nuxt />
   </div>
@@ -11,4 +11,5 @@ export default {
   components: { NavBar }
 }
 </script>
-<style></style>
+<style>
+</style>

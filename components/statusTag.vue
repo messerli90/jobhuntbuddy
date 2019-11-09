@@ -4,13 +4,23 @@
 
 <script>
 export default {
-  props: ['status'],
+  props: {
+    status: {
+      type: String,
+      default () {
+        return 'created'
+      }
+    }
+  },
   computed: {
     classes () {
       let classes = ''
       switch (this.status) {
         case 'application sent':
           classes = 'bg-green-200 text-green-800'
+          break
+        case 'created':
+          classes = 'bg-yellow-200 text-yellow-800'
           break
         case 'rejected':
           classes = 'bg-red-200 text-red-800'
