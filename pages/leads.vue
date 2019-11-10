@@ -1,14 +1,11 @@
 <template>
   <div class="flex flex-wrap pt-16">
-    <div class="w-screen md:w-1/2 lg:w-1/3 p-4 sm:overflow-y-auto">
-      <div class="card flex flex-col items-center justify-center bg-gray-100 px-4 py-4 shadow rounded border-gray-700 mb-3 text-green-700" @click="handleAddLead">
-        <svg class="h-8 w-8 fill-current stroke-current" viewBox="0 0 22 22">
-          <path
-            fill-rule="evenodd"
-            d="M13.68,9.448h-3.128V6.319c0-0.304-0.248-0.551-0.552-0.551S9.448,6.015,9.448,6.319v3.129H6.319c-0.304,0-0.551,0.247-0.551,0.551s0.247,0.551,0.551,0.551h3.129v3.129c0,0.305,0.248,0.551,0.552,0.551s0.552-0.246,0.552-0.551v-3.129h3.128c0.305,0,0.552-0.247,0.552-0.551S13.984,9.448,13.68,9.448z M10,0.968c-4.987,0-9.031,4.043-9.031,9.031c0,4.989,4.044,9.032,9.031,9.032c4.988,0,9.031-4.043,9.031-9.032C19.031,5.012,14.988,0.968,10,0.968z M10,17.902c-4.364,0-7.902-3.539-7.902-7.903c0-4.365,3.538-7.902,7.902-7.902S17.902,5.635,17.902,10C17.902,14.363,14.364,17.902,10,17.902z"
-          />
-        </svg>
-        Add New Lead
+    <div class="w-screen md:w-1/2 lg:w-1/3 p-2 pl-0 sm:overflow-y-auto">
+      <div class="flex flex-row pb-4">
+        <button class="btn" @click="handleAddLead">
+          Add New Lead
+        </button>
+        <div></div>
       </div>
       <div>
         <div v-for="lead in leads" :key="lead.name">
@@ -33,10 +30,9 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow p-4">
+    <div class="flex-grow md:w-1/2 lg:w-2/3 p-2 pr-0">
       <div v-if="!editing && !currentLead" class="bg-gray-100 rounded shadow flex flex-col items-center justify-center">
-        <h1>Select a lead to get goin</h1>
-        <h3>No Lead Selected</h3>
+        <WelcomeMessage />
       </div>
       <div v-if="!editing && currentLead" class="">
         <LeadView :lead="currentLead" class="bg-gray-100 rounded shadow p-4" />
@@ -49,8 +45,8 @@
           </button>
         </div>
       </div>
-      <div v-if="editing" class="bg-gray-100 rounded shadow">
-        <EditLead :lead="currentLead" />
+      <div>
+      <EditLead v-if="editing" :lead="currentLead" />
       </div>
     </div>
   </div>
@@ -60,8 +56,9 @@
 import StatusTag from '~/components/statusTag'
 import LeadView from '~/components/LeadView'
 import EditLead from '~/components/EditLead'
+import WelcomeMessage from '~/components/WelcomeMessage'
 export default {
-  components: { StatusTag, LeadView, EditLead },
+  components: { StatusTag, LeadView, EditLead, WelcomeMessage },
   data () {
     return {
       currentLead: null,
@@ -80,18 +77,19 @@ export default {
     setCurrentLead (lead) {
       this.editing = false
       this.currentLead = lead
-      // this.$store.dispatch('lead/setCurrentLead', lead)
-    },
-    clearCurrentLead () {
-      this.currentLead = null
-      // this.$store.dispatch('lead/clearCurrentLead')
     },
     editCurrent () {
       this.editing = true
     },
     handleAddLead () {
-      this.currentLead = null
-      this.editing = true
+      const self = this
+      new Promise(function (resolve, reject) {
+        self.editing = false
+        self.currentLead = null
+        resolve(true)
+      }).then(function () {
+        self.editing = true
+      })
     }
   }
 }

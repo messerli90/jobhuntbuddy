@@ -9,13 +9,15 @@ export const state = () => ({
       status: 'application sent',
       companyWebsite: 'https://stripe.com',
       listingWebsite: 'https://stripe.com/careers',
-      contactName: 'Nicole Samsung'
+      contactName: 'Nicole Samsung',
+      contactEmail: 'nicole@stripe.com'
     },
     {
       uuid: uuid.v1(),
       companyName: 'NomadList',
       status: 'rejected',
-      companyWebsite: 'https://nomadlist.com'
+      companyWebsite: 'https://nomadlist.com',
+      contactName: 'Pieter'
     },
     {
       uuid: uuid.v1(),
@@ -63,5 +65,15 @@ export const EMPTY_LEAD = {
   companyName: null,
   jobTitle: null,
   status: null,
-  companyWebsite: null
+  companyWebsite: null,
+  contactName: null,
+  contactEmail: null,
+  sentDate: null
 }
+
+export const STATUSES = [
+  'just a prospect',
+  'application sent',
+  'interview set',
+  'rejected'
+]

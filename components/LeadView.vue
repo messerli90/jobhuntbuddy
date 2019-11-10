@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="flex justify-between items-center">
+    <div class="flex sm:flex-row content-center justify-between items-center">
       <div>
         <div id="companyName" class="text-2xl text-gray-900">
           <h1 v-if="!!lead.companyName">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="items-center">
-        <div v-if="!!lead.companyWebsite" id="companyWebsite" class="py-1 text-gray-800 flex flex-col items-center text-sm">
+        <div v-if="!!lead.companyWebsite" id="companyWebsite" class="py-2 text-gray-800 flex flex-col items-center text-sm">
           <p>
             <a :href="lead.companyWebsite" class="text-blue-800">{{ lead.companyWebsite }}</a>
           </p>
@@ -28,7 +28,7 @@
             Company Website
           </p>
         </div>
-        <div v-if="!!lead.listingWebsite" id="listingWebsite" class="py-1 text-gray-800 flex flex-col items-center text-sm">
+        <div v-if="!!lead.listingWebsite" id="listingWebsite" class="py-2 text-gray-800 flex flex-col items-center text-sm">
           <p>
             <a :href="lead.listingWebsite" class="text-blue-800">{{ lead.listingWebsite }}</a>
           </p>
@@ -47,12 +47,20 @@
     <div class="flex flex-row py-2">
       <div class="w-full">
         <dl>
-          <div v-show="lead.contactName">
+          <div v-show="lead.contactName" class="py-1">
             <dt class="text-xs text-gray-700">
               Contact Name
             </dt>
             <dd>
               {{ lead.contactName }}
+            </dd>
+          </div>
+          <div v-show="lead.contactEmail" class="py-1">
+            <dt class="text-xs text-gray-700">
+              Contact Email
+            </dt>
+            <dd>
+              {{ lead.contactEmail }}
             </dd>
           </div>
         </dl>
@@ -61,6 +69,9 @@
         <h3 class="text-lg">
           Notes
         </h3>
+        <div class="text-gray-600 text-sm">
+          <p>No Notes.</p>
+        </div>
       </div>
     </div>
   </div>

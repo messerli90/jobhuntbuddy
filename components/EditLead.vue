@@ -1,10 +1,13 @@
 <template>
-  <div class="p-4">
+  <div class="bg-gray-100 rounded shadow">
+    <h1 class="text-2xl text-center pt-4 text-gray-900 font-thin">
+      {{ title }} <span class="font-medium">{{ form.companyName }}</span>
+    </h1>
     <div class="flex flex-wrap">
-      <div class="w-full lg:w-1/2">
+      <div class="w-full lg:w-1/2 p-4">
         <!-- Company Name Field -->
         <div class="flex flex-row items-center py-2">
-          <div class="w-1/2 md:w-1/3">
+          <div class="w-1/2">
             <label for="companyName">Company Name</label>
           </div>
           <input
@@ -18,7 +21,7 @@
 
         <!-- Job Title Field -->
         <div class="flex flex-row items-center py-2">
-          <div class="w-1/2 md:w-1/3">
+          <div class="w-1/2">
             <label for="jobTitle">Job Title</label>
           </div>
           <input
@@ -30,12 +33,71 @@
         </div>
         <!-- /Job Title Field -->
       </div>
-      <div>
-        right
+      <div class="w-full lg:w-1/2 p-4">
+        <!-- Company Website Field -->
+        <div class="flex flex-row items-center py-2">
+          <div class="w-1/2">
+            <label for="companyWebsite">Company Website</label>
+          </div>
+          <input
+            v-model="form.companyWebsite"
+            class="text-input"
+            type="text"
+            placeholder="https://"
+          >
+        </div>
+        <!-- /Job Title Field -->
+        <!-- Listing URL Field -->
+        <div class="flex flex-row items-center py-2">
+          <div class="w-1/2">
+            <label for="listingWebsite">Job Listing URL</label>
+          </div>
+          <input
+            v-model="form.listingWebsite"
+            class="text-input"
+            type="text"
+            placeholder="https://"
+          >
+        </div>
+        <!-- /Listing URL Field -->
+      </div>
+    </div>
+    <h2 class="text-xl text-center pt-4 text-gray-900 font-thin">
+      Extras
+    </h2>
+    <div class="flex flex-wrap">
+      <div class="w-full lg:w-1/2 p-4">
+        <!-- Contact Name Field -->
+        <div class="flex flex-row items-center py-2">
+          <div class="w-1/2">
+            <label for="contactName">Contact Name</label>
+          </div>
+          <input
+            v-model="form.contactName"
+            class="text-input"
+            type="text"
+            placeholder="Contact Name"
+          >
+        </div>
+        <!-- /Contact Name Field -->
+
+        <!-- Contact Email Field -->
+        <div class="flex flex-row items-center py-2">
+          <div class="w-1/2">
+            <label for="contactEmail">Contact Email</label>
+          </div>
+          <input
+            v-model="form.contactEmail"
+            class="text-input"
+            type="text"
+            placeholder="Contact Email"
+          >
+        </div>
+        <!-- /Contact Email Field -->
       </div>
     </div>
 
-    <button class="btn object-right-bottom" :class="{ 'bg-gray-200': saving }" :disabled="!!saving" @click="saveLead">
+    <button class="btn m-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving" @click="saveLead">
       Save Lead
     </button>
   </div>
@@ -63,6 +125,28 @@ export default {
       }
     }
   },
+  computed: {
+    title () {
+      if (this.lead) {
+        return 'Update lead for '
+      } else {
+        return this.form.companyName
+          ? 'An exciting new opportunity at '
+          : 'An exciting new opportunity'
+      }
+    }
+  },
+  mounted () {
+    if (this.lead) {
+      console.log('exists')
+      this.form = {
+        ...this.lead
+      }
+    } else {
+      console.log('new')
+      this.form = EMPTY_LEAD
+    }
+  },
   methods: {
     saveLead () {
       const nuuid = this.lead ? this.lead.uuid : null
@@ -71,13 +155,6 @@ export default {
         ...this.form
       }
       this.$store.dispatch('leads/saveLead', lead)
-    }
-  },
-  mounted () {
-    if (this.lead) {
-      this.form = {
-        ...this.lead
-      }
     }
   }
 }
