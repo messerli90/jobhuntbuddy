@@ -5,25 +5,24 @@
         <button class="btn" @click="handleAddLead">
           Add New Lead
         </button>
-        <div></div>
       </div>
       <div>
         <div v-for="lead in leads" :key="lead.name">
-          <div class="card flex items-center justify-between bg-gray-100 px-4 py-3 shadow rounded border-gray-700 mb-3" @click="setCurrentLead(lead)">
-            <div class="flex-shrink-0">
+          <div class="card overflow-hidden flex items-center justify-between bg-gray-100 px-4 py-3 shadow rounded border-gray-700 mb-3" @click="setCurrentLead(lead)">
+            <div class="w-2/3">
               <h2 class="font-medium text-lg text-gray-800">
                 {{ lead.companyName }}
               </h2>
               <h3 class="font-thin text-sm text-gray-800">
                 {{ lead.jobTitle }}
               </h3>
-              <p>
-                <a href="#" class="text-sm text-blue-800">
+              <p class="truncate">
+                <a href="#" class="text-sm text-blue-800 truncate">
                   {{ lead.companyWebsite }}
                 </a>
               </p>
             </div>
-            <div class="flex-shrink">
+            <div class="">
               <StatusTag :status="lead.status" class="text-xs" />
             </div>
           </div>
@@ -43,10 +42,11 @@
             </svg>
             <span class="inline">Edit</span>
           </button>
+          <a href="" class="py-1 px-3 text-sm text-red-800 underline" @click.prevent="removeCurrent">Remove</a>
         </div>
       </div>
       <div>
-      <EditLead v-if="editing" :lead="currentLead" />
+        <EditLead v-if="editing" :lead="currentLead" />
       </div>
     </div>
   </div>
@@ -80,6 +80,13 @@ export default {
     },
     editCurrent () {
       this.editing = true
+    },
+    removeCurrent () {
+      const confirmRemove = confirm('Are you sure you want to remove this lead?')
+      if (confirmRemove) {
+        this.$store.dispatch('leads/remove', this.currentLead)
+        this.currentLead = null
+      }
     },
     handleAddLead () {
       const self = this

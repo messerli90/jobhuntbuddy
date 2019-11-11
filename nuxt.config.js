@@ -28,7 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/Uuid'
+    '~/plugins/Uuid', '~/plugins/Vuelidate'
   ],
   /*
   ** Nuxt.js dev-modules

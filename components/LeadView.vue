@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="py-2">
-      <hr />
+      <hr>
     </div>
     <div class="flex flex-row py-2">
       <div class="w-full">

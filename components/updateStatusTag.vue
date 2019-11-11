@@ -3,14 +3,13 @@
 </template>
 
 <script>
-// import { STATUSES } from '~/store/leads'
 export default {
   props: {
     status: {
       type: String,
       required: false,
       default () {
-        return 'just a hunch'
+        return 'created'
       }
     }
   },
@@ -21,14 +20,12 @@ export default {
         case 'application sent':
           classes = 'bg-green-200 text-green-800'
           break
-        case 'interview set':
-          classes = 'bg-blue-200 text-blue-800'
+        case 'created':
+          classes = 'bg-yellow-200 text-yellow-800'
           break
         case 'rejected':
           classes = 'bg-red-200 text-red-800'
           break
-        default:
-          classes = 'bg-yellow-200 text-yellow-800'
       }
       return classes
     },
