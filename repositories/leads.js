@@ -1,14 +1,51 @@
-// import * as firebase from 'firebase/app'
-// import 'firebase/firestore'
+import { fireDb } from '~/plugins/firebase'
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDF3IralvpqS0dqggjyfdPUbRbfJ2bOcQo',
-//   authDomain: 'job-hunt-buddy.firebaseapp.com',
-//   databaseURL: 'https://job-hunt-buddy.firebaseio.com',
-//   projectId: 'job-hunt-buddy',
-//   storageBucket: 'job-hunt-buddy.appspot.com',
-//   messagingSenderId: '455609997246',
-//   appId: '1:455609997246:web:dbc193c4ab01efea670bef'
-// }
+async function list () {
+  const ref = fireDb.collection('leads')
 
-// firebase.initializeApp(firebaseConfig)
+  const leads = []
+  try {
+    const snap = await ref.get()
+    if (snap.empty) {
+      return []
+    }
+    snap.forEach((doc) => {
+      leads.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+  } catch (e) {
+  }
+
+  return leads
+}
+
+async function store (lead) {
+  const ref = fireDb.collection('leads').doc(lead.id)
+
+  let res
+  try {
+    delete lead.id
+    res = await ref.set(lead)
+  } catch (e) {
+    // Handle Error
+  }
+  return res
+}
+
+async function remove (lead) {
+  const ref = fireDb.collection('leads').doc(lead.id)
+
+  try {
+    await ref.delete()
+  } catch (e) {
+    // Handle Error
+  }
+}
+
+export {
+  list,
+  store,
+  remove
+}

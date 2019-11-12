@@ -1,5 +1,5 @@
 {
-  "name": "JobHuntBuddy",
+  "name": "jobhhuntbuddy",
   "version": "1.0.0",
   "description": "Helping you manage your job hunt by tracking leads, applications, and your CV resources",
   "author": "Michael Messerli",
@@ -23,6 +23,7 @@
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@vue/test-utils": "^1.0.0-beta.27",

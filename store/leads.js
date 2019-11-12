@@ -1,5 +1,5 @@
 import { uuid } from 'vue-uuid'
-import { fireDb } from '~/plugins/firebase'
+import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
   list: []
@@ -36,19 +36,19 @@ export const getters = {
 
 export const actions = {
   async getAll ({ commit }) {
-    const leads = await getAllFromFirestore()
+    const leads = await FireStore.list()
     commit('set', leads)
   },
   async create ({ commit }, lead) {
-    await writeToFirestore(lead)
+    await FireStore.store(lead)
     commit('add', lead)
   },
   async update ({ commit }, lead) {
-    await writeToFirestore(lead)
+    await FireStore.store(lead)
     commit('update', lead)
   },
   async remove ({ commit }, lead) {
-    await removeFromFirestore(lead)
+    await FireStore.remove(lead)
     commit('remove', lead)
   },
   saveLead ({ commit }, lead) {
@@ -58,51 +58,7 @@ export const actions = {
       lead.id = uuid.v1()
       commit('add', lead)
     }
-    writeToFirestore(lead)
-  }
-}
-
-async function getAllFromFirestore () {
-  const ref = fireDb.collection('leads')
-
-  const leads = []
-  try {
-    const snap = await ref.get()
-    if (snap.empty) {
-      return []
-    }
-    snap.forEach((doc) => {
-      leads.push({
-        id: doc.id,
-        ...doc.data()
-      })
-    })
-  } catch (e) {
-  }
-
-  return leads
-}
-
-async function writeToFirestore (lead) {
-  const ref = fireDb.collection('leads').doc(lead.id)
-
-  let res
-  try {
-    delete lead.id
-    res = await ref.set(lead)
-  } catch (e) {
-    // Handle Error
-  }
-  return res
-}
-
-async function removeFromFirestore (lead) {
-  const ref = fireDb.collection('leads').doc(lead.id)
-
-  try {
-    await ref.delete()
-  } catch (e) {
-    // Handle Error
+    FireStore.store(lead)
   }
 }
 
