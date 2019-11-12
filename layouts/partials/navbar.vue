@@ -1,5 +1,5 @@
 <template>
-  <header class="container bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 fixed top-0 inset-x-0 z-100 h-16 rounded-b z-50">
+  <header class="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 fixed top-0 inset-x-0 z-100 rounded-b">
     <div class="flex items-center justify-between px-4 py-3 sm:p-0 bg-gray-900">
       <nuxt-link to="/" class="text-gray-200 text-xl font-bold">
         Job<span class="font-thin">Hunt</span>Buddy<span class="font-thin">.co</span>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4 sm:flex sm:p-0">
-      <nuxt-link to="leads" class="block px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">
+      <nuxt-link to="/leads" class="block px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">
         Manage Applications
       </nuxt-link>
       <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Jobs</a>

@@ -65,16 +65,16 @@
           </div>
         </dl>
       </div>
-      <div class="w-full">
-        <h3 class="text-lg">
-          Notes
-        </h3>
-        <div v-if="lead.notes" class="text-gray-900 text-sm">
-          <div v-html="compiledMarkdown" />
-        </div>
-        <div v-else class="text-gray-600 text-sm">
-          <p>No Notes.</p>
-        </div>
+    </div>
+    <div class="w-full">
+      <h3 class="text-lg">
+        Notes
+      </h3>
+      <div v-if="lead.notes" class="text-gray-900 text-sm">
+        <!-- <div v-html="compiledMarkdown" class="p-2 rounded bg-gray-200" /> -->
+      </div>
+      <div v-else class="text-gray-600 text-sm">
+        <p>No Notes.</p>
       </div>
     </div>
   </div>

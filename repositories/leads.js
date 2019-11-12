@@ -21,7 +21,20 @@ async function list () {
   return leads
 }
 
-async function store (lead) {
+async function create (lead) {
+  const ref = fireDb.collection('leads').doc()
+
+  let res
+  try {
+    delete lead.id
+    res = await ref.set(lead)
+  } catch (e) {
+    // Handle Error
+  }
+  return res
+}
+
+async function update (lead) {
   const ref = fireDb.collection('leads').doc(lead.id)
 
   let res
@@ -46,6 +59,7 @@ async function remove (lead) {
 
 export {
   list,
-  store,
+  create,
+  update,
   remove
 }

@@ -2,10 +2,10 @@
   <div class="bg-gray-100 rounded shadow">
     <form @submit.prevent="saveLead">
       <div class="flex content-center justify-between px-4 pt-4">
-        <h1 class="text-3xl text-center pt-4 text-gray-900 font-thin">
+        <h1 class="text-3xl text-center pt-4 text-gray-900 font-thin break-words w-2/3">
           {{ title }} <span class="font-medium">{{ form.companyName }}</span>
         </h1>
-        <div class="text-center">
+        <div class="w-1/3 flex-shrink-0 text-center">
           <label class="text-gray-900 text-lg mb-2">
             Status
           </label>
@@ -39,7 +39,7 @@
               >
             </div>
           </div>
-          <p v-if="!$v.form.companyName.required" class="text-right w-full text-xs text-red-400">
+          <p v-if="$v.form.companyName.$error" class="text-right w-full text-xs text-red-400">
             We need at least a company name to create a lead.
           </p>
           <!-- /Company Name Field -->

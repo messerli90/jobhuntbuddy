@@ -1,8 +1,9 @@
-import { uuid } from 'vue-uuid'
+import merge from 'lodash.merge'
 import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
-  list: []
+  list: [],
+  lead: {}
 })
 
 export const mutations = {
@@ -10,11 +11,14 @@ export const mutations = {
     state.list = leads
   },
   add (state, lead) {
-    state.list.push(lead)
+    merge(state.list, lead)
   },
   remove (state, lead) {
     const i = state.list.indexOf(lead)
     state.list.splice(i, 1)
+  },
+  setLead (state, lead) {
+    state.lead = lead
   },
   update (state, lead) {
     state.list = [
@@ -31,6 +35,9 @@ export const mutations = {
 export const getters = {
   all (state) {
     return state.list
+  },
+  show (state) {
+    return state.lead
   }
 }
 
@@ -39,26 +46,21 @@ export const actions = {
     const leads = await FireStore.list()
     commit('set', leads)
   },
-  async create ({ commit }, lead) {
-    await FireStore.store(lead)
-    commit('add', lead)
+  async create ({ dispatch }, lead) {
+    await FireStore.create(lead)
+    dispatch('getAll')
   },
   async update ({ commit }, lead) {
-    await FireStore.store(lead)
+    await FireStore.update(lead)
     commit('update', lead)
   },
   async remove ({ commit }, lead) {
     await FireStore.remove(lead)
     commit('remove', lead)
   },
-  saveLead ({ commit }, lead) {
-    if (lead.id) {
-      commit('update', lead)
-    } else {
-      lead.id = uuid.v1()
-      commit('add', lead)
-    }
-    FireStore.store(lead)
+  setLead ({ commit, state }, leadId) {
+    const lead = state.list.find(l => l.id === leadId)
+    commit('setLead', lead)
   }
 }
 
@@ -68,7 +70,7 @@ export const EMPTY_LEAD = {
   jobTitle: null,
   status: 'just a prospect',
   companyWebsite: null,
-  listingWebsite: null,
+  listingUrl: null,
   contactName: null,
   contactEmail: null,
   sentDate: null,

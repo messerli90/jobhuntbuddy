@@ -1,5 +1,7 @@
 <template>
-  <span class="rounded-full px-3 py-2 font-semibold truncate" :class="classes">{{ title }}</span>
+  <span class="rounded-full px-3 py-2 font-semibold text-center" :class="classes">
+    {{ title }}
+  </span>
 </template>
 
 <script>
