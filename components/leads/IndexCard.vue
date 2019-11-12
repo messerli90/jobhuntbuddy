@@ -9,7 +9,7 @@
       </h3>
     </div>
     <div class="flex-shrink-0">
-      <StatusTag :status="lead.status" class="text-xs break-words" />
+      <StatusTag :status="lead.status" size="xs" class="break-words" />
     </div>
   </div>
 </template>

@@ -7,6 +7,15 @@
       <h2 class="text-center text-gray-700 font-normal">
         {{ lead.jobTitle }}
       </h2>
+      <div class="text-center my-4">
+        <StatusTag :status="lead.status" size="xs" />
+        <!-- <span class="inline-block rounded-full py-1 px-4" :class="statusClass">
+          {{ lead.status }}
+        </span>
+        <p class="uppercase font-semibold text-xs">
+          Application Status
+        </p> -->
+      </div>
       <hr class="m-6 w-2/3 mx-auto">
       <div class="flex flex-wrap md:flex-row md:content-around w-full mx-auto text-sm text-center">
         <div class="w-1/2 lg:w-1/4 px-2 py-3">
@@ -52,27 +61,67 @@
         <h5 class="text-gray-700 font-semibold">
           Notes
         </h5>
-        <div class="bg-gray-100 rounded py-2 px-4 mt-2" v-html="compiledMarkdown" />
+        <div v-if="lead.notes" class="bg-gray-100 rounded py-2 px-4 mt-2">
+          <div v-html="compiledMarkdown" />
+        </div>
+        <div v-else class="bg-gray-100 rounded py-2 px-4 mt-2">
+          <span class="text-gray-700 italic">No notes.</span>
+        </div>
       </div>
     </div>
-    <div class="flex justify-between content-center py-4">
-      <nuxt-link to="/lead/edit" class="bg-blue-400 py-2 px-3 rounded text-white text-sm">
+    <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
+      <nuxt-link to="/lead/edit" class="bg-blue-400 py-2 px-3 rounded text-white md:text-sm mr-2 w-full md:w-auto">
         Edit Lead
       </nuxt-link>
-      <a href="#" class="py-1 px-3 text-sm text-red-800 underline" @click.prevent="removeCurrent">Remove</a>
+      <div class="relative">
+        <select
+          id="status"
+          v-model="status"
+          class="block w-full md:w-auto appearance-none bg-gray-400 md:h-full text-gray-700 md:text-sm py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
+          @change="handleStatusChange"
+        >
+          <option value="">
+            Quick Status Change
+          </option>
+          <option v-for="s in statuses" :key="s.key" :value="s.key">
+            {{ s.text }}
+          </option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+        </div>
+      </div>
+      <a
+        href="#"
+        class="mt-4 md:m-auto py-1 px-3 text-sm text-red-800 underline md:flex-grow md:text-right"
+        @click.prevent="removeCurrent"
+      >
+        Remove
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 import marked from 'marked'
+import StatusTag from '~/components/statusTag'
+import { STATUSES } from '~/store/leads'
 export default {
+  components: { StatusTag },
+  data () {
+    return {
+      status: ''
+    }
+  },
   computed: {
     lead () {
       return this.$store.getters['leads/show']
     },
     compiledMarkdown () {
       return marked(String(this.lead.notes))
+    },
+    statuses () {
+      return STATUSES
     }
   },
   mounted () {
@@ -86,6 +135,9 @@ export default {
         await this.$store.dispatch('leads/remove', this.lead)
         this.$router.push({ path: '/leads' })
       }
+    },
+    handleStatusChange () {
+      // TODO handle status change
     }
   }
 }
