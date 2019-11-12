@@ -39,7 +39,9 @@
               >
             </div>
           </div>
-          <p class="text-right w-full text-xs text-red-400" v-if="!$v.form.companyName.required">We need at least a company name to create a lead.</p>
+          <p v-if="!$v.form.companyName.required" class="text-right w-full text-xs text-red-400">
+            We need at least a company name to create a lead.
+          </p>
           <!-- /Company Name Field -->
 
           <!-- Job Title Field -->
@@ -74,7 +76,9 @@
               >
             </div>
           </div>
-          <p class="text-right w-full text-xs text-red-400" v-if="!$v.form.companyWebsite.url">Needs to be a valid URL.</p>
+          <p v-if="!$v.form.companyWebsite.url" class="text-right w-full text-xs text-red-400">
+            Needs to be a valid URL.
+          </p>
           <!-- /Company Website Field -->
           <!-- Listing URL Field -->
           <div class="flex flex-row items-center py-2">
@@ -91,7 +95,9 @@
               >
             </div>
           </div>
-          <p class="text-right w-full text-xs text-red-400" v-if="!$v.form.listingWebsite.url">Needs to be a valid URL.</p>
+          <p v-if="!$v.form.listingWebsite.url" class="text-right w-full text-xs text-red-400">
+            Needs to be a valid URL.
+          </p>
           <!-- /Listing URL Field -->
         </div>
       </div>
@@ -128,6 +134,12 @@
           </div>
           <!-- /Contact Email Field -->
         </div>
+      </div>
+      <h2 class="text-xl text-center pt-4 text-gray-900 font-thin">
+        Notes
+      </h2>
+      <div class="p-4">
+        <textarea v-model="form.notes" cols="30" rows="10" class="text-input" />
       </div>
 
       <button type="submit" class="btn m-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
@@ -202,17 +214,18 @@ export default {
   },
   methods: {
     saveLead () {
-      console.log('submit')
+      // console.log('submit')
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        const nuuid = this.lead ? this.lead.uuid : null
-        const lead = {
-          uuid: nuuid,
-          ...this.form
-        }
-        this.$store.dispatch('leads/saveLead', lead)
+        const id = this.form.id || null
+        this.form.id = id
+        // const lead = {
+        //   id,
+        //   ...this.form
+        // }
+        this.$store.dispatch('leads/saveLead', this.form)
       }
     }
   }

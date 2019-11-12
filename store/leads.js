@@ -1,33 +1,14 @@
 import { uuid } from 'vue-uuid'
+import { fireDb } from '~/plugins/firebase'
 
 export const state = () => ({
-  list: [
-    {
-      uuid: uuid.v1(),
-      companyName: 'Stripe',
-      jobTitle: 'Senior PHP Developer',
-      status: 'application sent',
-      companyWebsite: 'https://stripe.com',
-      listingWebsite: 'https://stripe.com/careers',
-      contactName: 'Nicole Samsung',
-      contactEmail: 'nicole@stripe.com'
-    },
-    {
-      uuid: uuid.v1(),
-      companyName: 'NomadList',
-      status: 'rejected',
-      companyWebsite: 'https://nomadlist.com',
-      contactName: 'Pieter'
-    },
-    {
-      uuid: uuid.v1(),
-      jobTitle: 'Q/A Analyst',
-      status: 'application sent'
-    }
-  ]
+  list: []
 })
 
 export const mutations = {
+  set (state, leads) {
+    state.list = leads
+  },
   add (state, lead) {
     state.list.push(lead)
   },
@@ -37,7 +18,7 @@ export const mutations = {
   },
   update (state, lead) {
     state.list = [
-      ...state.list.map(item => item.uuid !== lead.uuid
+      ...state.list.map(item => item.id !== lead.id
         ? item : {
           ...item,
           ...lead
@@ -54,21 +35,79 @@ export const getters = {
 }
 
 export const actions = {
+  async getAll ({ commit }) {
+    const leads = await getAllFromFirestore()
+    commit('set', leads)
+  },
+  async create ({ commit }, lead) {
+    await writeToFirestore(lead)
+    commit('add', lead)
+  },
+  async update ({ commit }, lead) {
+    await writeToFirestore(lead)
+    commit('update', lead)
+  },
+  async remove ({ commit }, lead) {
+    await removeFromFirestore(lead)
+    commit('remove', lead)
+  },
   saveLead ({ commit }, lead) {
-    if (lead.uuid) {
+    if (lead.id) {
       commit('update', lead)
     } else {
-      lead.uuid = uuid.v1()
+      lead.id = uuid.v1()
       commit('add', lead)
     }
-  },
-  remove ({ commit }, lead) {
-    commit('remove', lead)
+    writeToFirestore(lead)
+  }
+}
+
+async function getAllFromFirestore () {
+  const ref = fireDb.collection('leads')
+
+  const leads = []
+  try {
+    const snap = await ref.get()
+    if (snap.empty) {
+      return []
+    }
+    snap.forEach((doc) => {
+      leads.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+  } catch (e) {
+  }
+
+  return leads
+}
+
+async function writeToFirestore (lead) {
+  const ref = fireDb.collection('leads').doc(lead.id)
+
+  let res
+  try {
+    delete lead.id
+    res = await ref.set(lead)
+  } catch (e) {
+    // Handle Error
+  }
+  return res
+}
+
+async function removeFromFirestore (lead) {
+  const ref = fireDb.collection('leads').doc(lead.id)
+
+  try {
+    await ref.delete()
+  } catch (e) {
+    // Handle Error
   }
 }
 
 export const EMPTY_LEAD = {
-  uuid: null,
+  id: null,
   companyName: null,
   jobTitle: null,
   status: 'just a prospect',
@@ -76,7 +115,8 @@ export const EMPTY_LEAD = {
   listingWebsite: null,
   contactName: null,
   contactEmail: null,
-  sentDate: null
+  sentDate: null,
+  notes: null
 }
 
 export const STATUSES = [

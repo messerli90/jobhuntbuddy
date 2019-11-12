@@ -69,7 +69,10 @@
         <h3 class="text-lg">
           Notes
         </h3>
-        <div class="text-gray-600 text-sm">
+        <div v-if="lead.notes" class="text-gray-900 text-sm">
+          <div v-html="compiledMarkdown" />
+        </div>
+        <div v-else class="text-gray-600 text-sm">
           <p>No Notes.</p>
         </div>
       </div>
@@ -78,6 +81,7 @@
 </template>
 
 <script>
+import marked from 'marked'
 import StatusTag from '~/components/statusTag'
 
 export default {
@@ -88,7 +92,11 @@ export default {
       required: true
     }
   },
-  computed: {},
+  computed: {
+    compiledMarkdown () {
+      return marked(String(this.lead.notes), { sanitize: true })
+    }
+  },
   mounted () {
     // console.log(EMPTY_LEAD)
   },

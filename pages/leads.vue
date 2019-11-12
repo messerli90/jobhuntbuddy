@@ -8,7 +8,7 @@
       </div>
       <div>
         <div v-for="lead in leads" :key="lead.name">
-          <div class="card overflow-hidden flex items-center justify-between bg-gray-100 px-4 py-3 shadow rounded border-gray-700 mb-3" @click="setCurrentLead(lead)">
+          <div class="card flex items-center justify-between bg-gray-100 px-4 py-3 shadow rounded border-gray-700 mb-3" @click="setCurrentLead(lead)">
             <div class="w-2/3">
               <h2 class="font-medium text-lg text-gray-800">
                 {{ lead.companyName }}
@@ -70,9 +70,9 @@ export default {
       return this.$store.getters['leads/all']
     }
   },
-  // async fetch ({ store }) {
-  //   await store.dispatch('leads/getLeads')
-  // },
+  async fetch ({ store }) {
+    await store.dispatch('leads/getAll')
+  },
   methods: {
     setCurrentLead (lead) {
       this.editing = false
