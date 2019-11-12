@@ -8,6 +8,11 @@
 
 JHB is built using Nuxt.js which is a framework for building Vue.js applications.
 
+## Configuration
+
+#### Setup
+Using the `.env.example` as a template create your own `.env` in the root of the project
+
 ## Build Setup
 
 ``` bash
