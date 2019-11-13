@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "cookieparser": "^0.1.0",
     "firebase": "^7.3.0",
     "firebase-admin": "^8.7.0",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
     "lodash.merge": "^4.6.2",
     "marked": "^0.7.0",
     "nuxt": "^2.0.0",

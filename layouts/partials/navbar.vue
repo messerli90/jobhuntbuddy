@@ -26,7 +26,28 @@
         Track Applications
       </nuxt-link>
       <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Jobs</a>
-      <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Resources</a>
+      <a
+        v-if="authenticated"
+        href="#"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+        @click.prevent="logout"
+      >
+        Logout
+      </a>
+      <nuxt-link
+        v-if="!authenticated"
+        to="/auth/signin"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+      >
+        Sign In
+      </nuxt-link>
+      <nuxt-link
+        v-if="!authenticated"
+        to="/auth/signup"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+      >
+        Register
+      </nuxt-link>
     </div>
   </header>
 </template>
@@ -36,6 +57,12 @@ export default {
   data () {
     return {
       isOpen: false
+    }
+  },
+  methods: {
+    async logout () {
+      await this.$store.dispatch('users/logout')
+      this.$router.push('/')
     }
   }
 }
