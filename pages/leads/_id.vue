@@ -62,6 +62,7 @@
           Notes
         </h5>
         <div v-if="lead.notes" class="bg-gray-100 rounded py-2 px-4 mt-2">
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="compiledMarkdown" />
         </div>
         <div v-else class="bg-gray-100 rounded py-2 px-4 mt-2">
@@ -91,13 +92,15 @@
           <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
         </div>
       </div>
-      <a
-        href="#"
-        class="mt-4 md:m-auto py-1 px-3 text-sm text-red-800 underline md:flex-grow md:text-right"
-        @click.prevent="removeCurrent"
-      >
-        Remove
-      </a>
+      <div class="mt-4 md:m-auto py-1 px-3 md:flex-grow md:text-right">
+        <a
+          href="#"
+          class="text-sm text-red-800 underline"
+          @click.prevent="removeCurrent"
+        >
+          Remove
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -137,7 +140,11 @@ export default {
       }
     },
     handleStatusChange () {
-      // TODO handle status change
+      const lead = {
+        ...this.lead
+      }
+      lead.status = this.status
+      this.$store.dispatch('leads/update', lead)
     }
   }
 }

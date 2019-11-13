@@ -21,6 +21,8 @@ export const mutations = {
     state.lead = lead
   },
   update (state, lead) {
+    // merge(state.list, lead)
+    state.lead = lead
     state.list = [
       ...state.list.map(item => item.id !== lead.id
         ? item : {
