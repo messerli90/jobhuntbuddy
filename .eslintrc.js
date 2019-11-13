@@ -9,9 +9,11 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
+    // https://eslint.vuejs.org/rules/
     'plugin:nuxt/recommended'
   ],
   // add your custom rules here
   rules: {
+    'vue/no-v-html': 'off'
   }
 }

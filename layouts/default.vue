@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <nuxt class="container" />
+    <nuxt class="container pt-16" />
   </div>
 </template>
 

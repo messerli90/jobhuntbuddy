@@ -1,7 +1,7 @@
-// import { getLeads } from '~/repositories/leads'
+import * as FireStore from '~/repositories/leads'
 export const actions = {
-  nuxtServerInit ({ commit }, context) {
-    // getLeads()
-    // console.log(getLeads())
+  async nuxtServerInit ({ commit }, context) {
+    const leads = await FireStore.list()
+    commit('leads/set', leads)
   }
 }
