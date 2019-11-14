@@ -32,12 +32,13 @@ export const actions = {
       await dispatch('setUser', firebaseUser.user)
     })
   },
-  async logout ({ commit }) {
+  async logout ({ dispatch, commit }) {
     await firebaseApp.auth().signOut()
 
     Cookies.remove('access_token')
     await commit('setUser', null)
     await commit('setUid', null)
+    // await dispatch('leads/clear')
   },
   async setUser ({ commit }, user) {
     const userInfo = {

@@ -21,6 +21,9 @@ export default {
     leads () {
       return this.$store.getters['leads/all']
     }
+  },
+  async fetch ({ store }) {
+    await store.dispatch('leads/getAll')
   }
 }
 </script>
