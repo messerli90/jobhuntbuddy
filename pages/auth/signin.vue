@@ -1,57 +1,68 @@
 <template>
-  <section class="p-2 mb-2">
-    <div class="rounded shadow bg-white w-full lg:w-2/3 mx-auto">
-      <h1 class="text-2xl uppercase text-center p-4 md:p-8 text-gray-900 font-thin">
-        Sign In
-      </h1>
-      <form class="w-full px-4" @submit.prevent="handleSubmit">
-        <div class="flex flex-wrap -mx-3 mb-3">
-          <div class="w-full px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="email"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              v-model.trim="$v.form.email.$model"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
-              :class="{ 'border-red-500': $v.form.email.$error }"
-              type="email"
-              placeholder=""
-            >
-            <p v-if="$v.form.email.$error && !$v.form.email.required" class="text-red-500 text-xs italic">
-              Email is required.
-            </p>
-          </div>
-          <div class="w-full px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="password"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              v-model.trim="$v.form.password.$model"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
-              :class="{ 'border-red-500': $v.form.password.$error }"
-              type="password"
-              placeholder=""
-            >
-            <p v-if="$v.form.password.$error && !$v.form.password.required" class="text-red-500 text-xs italic">
-              Password is required.
-            </p>
-          </div>
-        </div>
-        <button type="submit" class="btn mb-4" :class="{ 'bg-gray-200': sending }" :disabled="!!sending">
+  <section class="container py-32">
+    <div class="flex justify-center">
+      <div class="w-10/12 md:w-6/12 lg:w-4/12">
+        <h2 class="text-3xl tracking-wide text-center mb-8 text-gray-800 font-semibold">
           Sign In
-        </button>
-        <p v-show="errorMessage" class="py-4 text-red-500 italic">
-          {{ errorMessage }}
-        </p>
-      </form>
+        </h2>
+        <div class="rounded shadow bg-white p-8">
+          <form @submit.prevent="handleSubmit">
+            <div class="relative mb-3">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="email"
+              >
+                Email Address
+              </label>
+              <input
+                id="email"
+                v-model.trim="$v.form.email.$model"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
+                :class="{ 'border-red-300': $v.form.email.$error }"
+                type="email"
+                placeholder=""
+              >
+              <p v-if="$v.form.email.$error && !$v.form.email.required" class="text-red-500 text-xs italic">
+                Email is required.
+              </p>
+            </div>
+            <div class="relative mb-3">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="password"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                v-model.trim="$v.form.password.$model"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
+                :class="{ 'border-red-300': $v.form.password.$error }"
+                type="password"
+                placeholder=""
+              >
+              <p v-if="$v.form.password.$error && !$v.form.password.required" class="text-red-500 text-xs italic">
+                Password is required.
+              </p>
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
+              :class="{ 'bg-gray-200': sending }"
+              :disabled="!!sending"
+            >
+              Sign In
+            </button>
+            <p v-show="errorMessage" class="py-4 text-red-500 italic">
+              {{ errorMessage }}
+            </p>
+          </form>
+        </div>
+        <div class="text-center mt-8">
+          <p>Don't have an account yet?</p>
+          <p><a href="/auth/signup" class="text-blue-500 hover:underline">Sign up now</a></p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
