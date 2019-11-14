@@ -51,9 +51,9 @@
               :class="{ 'bg-gray-200': sending }"
               :disabled="!!sending"
             >
-              Sign In
+              {{ sending ? 'Signing in...' : 'Sign in' }}
             </button>
-            <p v-show="errorMessage" class="py-4 text-red-500 italic">
+            <p v-show="errorMessage" class="py-4 text-xs text-red-500 italic">
               {{ errorMessage }}
             </p>
           </form>
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     async handleSubmit () {
-      this.saving = true
+      this.sending = true
       this.$v.$touch()
       const user = this.form
       if (this.$v.$invalid) {
@@ -104,9 +104,9 @@ export default {
           this.$router.push('/leads')
         } catch (error) {
           this.errorMessage = error.message
+          this.sending = false
         }
       }
-      this.saving = false
     }
   }
 }

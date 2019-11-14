@@ -225,11 +225,11 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
+        this.saving = false
       } else {
         await this.$store.dispatch('leads/create', this.form)
         this.$router.push({ path: '/leads' })
       }
-      this.saving = false
     }
   }
 }

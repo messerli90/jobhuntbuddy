@@ -14,10 +14,7 @@ html {
 }
 
 .text-input {
-  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
-}
-.text-input:focus {
-  @apply outline-none shadow-outline;
+  @apply h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded;
 }
 
 @tailwind utilities;
