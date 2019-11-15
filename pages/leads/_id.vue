@@ -1,5 +1,10 @@
 <template>
   <div class="p-2 mb-2 w-full md:w-2/3 lg:w-1/2">
+    <div class="py-2">
+      <nuxt-link to="/leads" class="text-gray-600 hover:text-gray-800 hover:underline">
+        &lt; Back to Leads
+      </nuxt-link>
+    </div>
     <div class="rounded shadow bg-white p-4 md:p-8">
       <h1 class="text-2xl uppercase text-center text-gray-900 font-thin">
         {{ lead.companyName }}
@@ -78,7 +83,7 @@
         <select
           id="status"
           v-model="status"
-          class="block w-full md:w-auto appearance-none bg-gray-400 md:h-full text-gray-700 md:text-sm py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
+          class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 border-2 border-gray-300 md:text-sm py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
           @change="handleStatusChange"
         >
           <option value="">

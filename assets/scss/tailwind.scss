@@ -1,9 +1,15 @@
 @tailwind base;  
-@tailwind components; 
+@import url('https://fonts.googleapis.com/css?family=Nunito|Quicksand');
 
 html {
-  @apply bg-gray-300;
+  font-family: 'Nunito', Arial, sans-serif;
+  @apply bg-gray-200;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quicksand', Arial, sans-serif;
+}
+
+@tailwind components; 
 
 .btn {
   @apply bg-blue-500 py-2 px-4 rounded text-white;
@@ -15,6 +21,9 @@ html {
 
 .text-input {
   @apply h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded;
+}
+.drop-down {
+  @apply block appearance-none h-12 px-4 mb-1 w-full bg-white border-2 border-gray-300 rounded;
 }
 
 @tailwind utilities;

@@ -18,7 +18,7 @@
             <input
               id="company-name"
               v-model.trim="$v.form.companyName.$model"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               :class="{ 'border-red-500': $v.form.companyName.$error }"
               type="text"
               placeholder="Hooli"
@@ -38,7 +38,7 @@
               <select
                 id="status"
                 v-model="form.status"
-                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="drop-down"
               >
                 <option v-for="status in statuses" :key="status.key" :value="status.key">
                   {{ status.text }}
@@ -62,7 +62,7 @@
             <input
               id="job-title"
               v-model.trim="form.jobTitle"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               type="text"
               placeholder="Senior Life Coach"
             >
@@ -80,7 +80,7 @@
             <input
               id="company-website"
               v-model.trim="$v.form.companyWebsite.$model"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               type="text"
               placeholder="http://hooli.xyz"
             >
@@ -98,7 +98,7 @@
             <input
               id="listing-website"
               v-model.trim="$v.form.listingUrl.$model"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               type="text"
               placeholder="http://hooli.xyz/careers"
             >
@@ -123,7 +123,7 @@
             <input
               id="contact-name"
               v-model.trim="form.contactName"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               type="text"
               placeholder="Gavin Belson"
             >
@@ -141,7 +141,7 @@
             <input
               id="contact-email"
               v-model.trim="form.contactEmail"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input"
               type="text"
               placeholder="gavin.belson@hooli.xyz"
             >
@@ -158,7 +158,7 @@
             </label>
             <textarea
               v-model="form.notes"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+              class="text-input h-56"
               cols="30"
               rows="10"
             />

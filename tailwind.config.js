@@ -6,7 +6,14 @@ module.exports = {
   theme: {
     container: {
       center: true
+    },
+    fontFamily: {
+      'display': ['Cutive'],
+      'body': ['Nunito']
     }
+    // colors: {
+    //   gray: '#081621'
+    // }
   },
   variants: {},
   plugins: []
