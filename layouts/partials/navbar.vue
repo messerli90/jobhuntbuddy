@@ -1,8 +1,9 @@
 <template>
-  <header class="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 fixed top-0 inset-x-0 z-100 rounded-b">
+  <header class="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 fixed top-0 inset-x-0 z-100">
     <div class="flex items-center justify-between px-4 py-3 sm:p-0 bg-gray-900">
       <nuxt-link to="/" class="text-gray-200 text-xl font-bold">
         Job<span class="font-thin">Hunt</span>Buddy<span class="font-thin">.co</span>
+        <!-- <img src="@/assets/logo2.svg" alt="" class="h-8"> -->
       </nuxt-link>
       <div class="sm:hidden">
         <button type="button" class="block text-gray-500 hover:text-white focus:text-white" @click="isOpen = !isOpen">
@@ -26,7 +27,28 @@
         Track Applications
       </nuxt-link>
       <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Jobs</a>
-      <a href="#" class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2">Resources</a>
+      <a
+        v-if="authenticated"
+        href="#"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+        @click.prevent="logout"
+      >
+        Logout
+      </a>
+      <nuxt-link
+        v-if="!authenticated"
+        to="/auth/signin"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+      >
+        Sign In
+      </nuxt-link>
+      <nuxt-link
+        v-if="!authenticated"
+        to="/auth/signup"
+        class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+      >
+        Register
+      </nuxt-link>
     </div>
   </header>
 </template>
@@ -36,6 +58,12 @@ export default {
   data () {
     return {
       isOpen: false
+    }
+  },
+  methods: {
+    async logout () {
+      await this.$store.dispatch('users/logout')
+      this.$router.push('/')
     }
   }
 }

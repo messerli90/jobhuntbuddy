@@ -1,7 +1,7 @@
 import { fireDb } from '~/plugins/firebase'
 
-async function list () {
-  const ref = fireDb.collection('leads')
+async function list (userId) {
+  const ref = fireDb.collection(`users/${userId}/leads`)
 
   const leads = []
   try {
@@ -21,8 +21,8 @@ async function list () {
   return leads
 }
 
-async function create (lead) {
-  const ref = fireDb.collection('leads').doc()
+async function create (lead, userId) {
+  const ref = fireDb.collection(`users/${userId}/leads`).doc()
 
   let res
   try {
@@ -34,8 +34,8 @@ async function create (lead) {
   return res
 }
 
-async function update (lead) {
-  const ref = fireDb.collection('leads').doc(lead.id)
+async function update (lead, userId) {
+  const ref = fireDb.collection(`users/${userId}/leads`).doc(lead.id)
 
   let res
   try {
@@ -47,8 +47,8 @@ async function update (lead) {
   return res
 }
 
-async function remove (lead) {
-  const ref = fireDb.collection('leads').doc(lead.id)
+async function remove (lead, userId) {
+  const ref = fireDb.collection(`users/${userId}/leads`).doc(lead.id)
 
   try {
     await ref.delete()

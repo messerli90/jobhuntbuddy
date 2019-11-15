@@ -17,6 +17,10 @@ export const mutations = {
     const i = state.list.indexOf(lead)
     state.list.splice(i, 1)
   },
+  clear (state) {
+    state.list = []
+    state.lead = {}
+  },
   setLead (state, lead) {
     state.lead = lead
   },
@@ -44,25 +48,32 @@ export const getters = {
 }
 
 export const actions = {
-  async getAll ({ commit }) {
-    const leads = await FireStore.list()
+  async getAll ({ commit, rootState }) {
+    const userId = await rootState.users.uid
+    const leads = await FireStore.list(userId)
     commit('set', leads)
   },
-  async create ({ dispatch }, lead) {
-    await FireStore.create(lead)
+  async create ({ dispatch, rootState }, lead) {
+    const userId = await rootState.users.uid
+    await FireStore.create(lead, userId)
     dispatch('getAll')
   },
-  async update ({ commit }, lead) {
-    await FireStore.update(lead)
+  async update ({ commit, rootState }, lead) {
+    const userId = await rootState.users.uid
+    await FireStore.update(lead, userId)
     commit('update', lead)
   },
-  async remove ({ commit }, lead) {
-    await FireStore.remove(lead)
+  async remove ({ commit, rootState }, lead) {
+    const userId = await rootState.users.uid
+    await FireStore.remove(lead, userId)
     commit('remove', lead)
   },
   setLead ({ commit, state }, leadId) {
     const lead = state.list.find(l => l.id === leadId)
     commit('setLead', lead)
+  },
+  clear ({ commit }) {
+    commit('clear')
   }
 }
 

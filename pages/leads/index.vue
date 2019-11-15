@@ -16,11 +16,15 @@
 import IndexCard from '~/components/leads/IndexCard'
 import NoLeadsCard from '~/components/leads/noLeadsCard'
 export default {
+  middleware: 'authenticated',
   components: { IndexCard, NoLeadsCard },
   computed: {
     leads () {
       return this.$store.getters['leads/all']
     }
+  },
+  async fetch ({ store }) {
+    await store.dispatch('leads/getAll')
   }
 }
 </script>
