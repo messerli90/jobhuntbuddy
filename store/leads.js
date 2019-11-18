@@ -24,6 +24,9 @@ export const mutations = {
   setLead (state, lead) {
     state.lead = lead
   },
+  setAttribute (state, obj) {
+    state.lead[obj.attr] = obj.val
+  },
   update (state, lead) {
     // merge(state.list, lead)
     state.lead = lead
@@ -67,6 +70,9 @@ export const actions = {
     const userId = await rootState.users.uid
     await FireStore.remove(lead, userId)
     commit('remove', lead)
+  },
+  setAttribute ({ commit }, attrObj) {
+    commit('setAttribute', attrObj)
   },
   setLead ({ commit, state }, leadId) {
     const lead = state.list.find(l => l.id === leadId)
