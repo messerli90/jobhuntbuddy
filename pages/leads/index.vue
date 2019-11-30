@@ -30,8 +30,9 @@
         <nuxt-link v-for="lead in filteredList" :key="lead.id" :to="'/leads/' + lead.id">
           <IndexCard :lead="lead" />
         </nuxt-link>
+        <NoLeadsCard v-if="!filteredList.length" />
       </div>
-      <NoLeadsCard v-if="!leads.length" />
+      <OnboardingCard v-if="!leads.length" />
     </client-only>
   </div>
 </template>
@@ -39,10 +40,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import IndexCard from '~/components/leads/IndexCard'
+import OnboardingCard from '~/components/leads/onboardingCard'
 import NoLeadsCard from '~/components/leads/noLeadsCard'
 export default {
   middleware: 'authenticated',
-  components: { IndexCard, NoLeadsCard },
+  components: { IndexCard, NoLeadsCard, OnboardingCard },
   data () {
     return {
       filteredList: [],

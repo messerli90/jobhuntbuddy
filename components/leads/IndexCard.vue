@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex items-center justify-between bg-gray-100 p-3 shadow-md hover:shadow-lg rounded border-gray-700 mb-3">
+  <div class="card flex items-center justify-between bg-gray-100 p-6 shadow-md hover:shadow-lg rounded border-gray-700 mb-3">
     <div class="w-3/5 flex-grow-0">
       <h2 class="font-medium text-lg text-gray-800 truncate">
         {{ lead.companyName }}

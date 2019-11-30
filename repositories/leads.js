@@ -39,7 +39,6 @@ async function update (lead, userId) {
 
   let res
   try {
-    delete lead.id
     res = await ref.set(lead)
   } catch (e) {
     // Handle Error

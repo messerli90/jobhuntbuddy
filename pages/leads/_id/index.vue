@@ -148,8 +148,10 @@ export default {
       const lead = {
         ...this.lead
       }
-      lead.status = this.status
-      this.$store.dispatch('leads/update', lead)
+      if (this.status !== '') {
+        lead.status = this.status
+        this.$store.dispatch('leads/update', lead)
+      }
     }
   }
 }
