@@ -2,7 +2,7 @@
   <header class="bg-gray-900 fixed top-0 inset-x-0 z-50">
     <div class="container sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
       <div class="flex items-center justify-between px-4 py-3 sm:p-0 bg-gray-900">
-        <nuxt-link to="/" class="text-gray-200 text-xl font-bold">
+        <nuxt-link to="/" class="text-gray-100 text-xl font-bold">
           Job<span class="font-thin">Hunt</span>Buddy<span class="font-thin">.co</span>
           <!-- <img src="@/assets/logo2.svg" alt="" class="h-8"> -->
         </nuxt-link>
@@ -39,6 +39,7 @@
           @click.prevent="logout"
         >
           <fa :icon="['fas', 'sign-out-alt']" />
+          <span class="sm:hidden">Sign Out</span>
         </a>
         <nuxt-link
           v-if="!authenticated"
