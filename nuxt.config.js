@@ -48,7 +48,19 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    'nuxt-purgecss'
+    'nuxt-purgecss',
+    ['nuxt-fontawesome', {
+      component: 'fa',
+      imports: [
+        // import 2 icons from set
+        // please note this is PRO set in this example,
+        // you must have it in your node_modules to actually import
+        {
+          set: '@fortawesome/free-solid-svg-icons',
+          icons: ['faHeart', 'faSignOutAlt']
+        }
+      ]
+    }]
   ],
   /*
   ** Axios module configuration

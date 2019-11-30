@@ -1,14 +1,16 @@
 <template>
   <div>
     <NavBar />
-    <nuxt class="container py-16" />
+    <nuxt class="container pt-16" />
+    <Footer />
   </div>
 </template>
 
 <script>
 import NavBar from './partials/navbar'
+import Footer from './partials/footer'
 export default {
-  components: { NavBar }
+  components: { NavBar, Footer }
 }
 </script>
 <style>
