@@ -1,28 +1,28 @@
 <template>
-  <div id="lead-index-wrapper" class="pt-16 px-2 w-full md:w-2/3 lg:w-1/2 xl:w-2/5">
+  <div id="lead-index-wrapper" class="pt-16 px-2 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
     <client-only>
       <div v-if="leads.length">
         <!-- <nuxt-link to="/leads/create" class="flex items-center justify-center bg-blue-900 hover:bg-blue-800 text-white text-lg rounded shadow py-3 mb-4">
           <span>Track a new Lead</span>
         </nuxt-link> -->
-        <div class="my-4 flex flex-col items-center">
-          <span class="text-gray-800 font-semibold uppercase text-sm mb-2">
+        <div class="mb-4 flex flex-col items-center w-full">
+          <!-- <span class="text-gray-800 font-semibold uppercase mb-2">
             Filter Leads
-          </span>
-          <div class="flex flex-wrap justify-center">
-            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-xs m-1 hover:bg-gray-500" :class="{ 'bg-gray-700 hover:bg-gray-800 text-white' : filterName === 'clearFilter' }" @click="clearFilter">
+          </span> -->
+          <div class="flex flex-wrap justify-center md:justify-around w-full">
+            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-sm m-1 hover:bg-gray-500" :class="{ 'bg-gray-700 hover:bg-gray-800 text-white' : filterName === 'clearFilter' }" @click="clearFilter">
               All Leads
             </button>
-            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-xs text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-yellow-200 hover:bg-yellow-300 text-yellow-800' : filterName === 'filterProspects' }" @click="filterProspects">
+            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-sm text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-yellow-200 hover:bg-yellow-300 text-yellow-800' : filterName === 'filterProspects' }" @click="filterProspects">
               Prospects
             </button>
-            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-xs text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-green-200 hover:bg-green-300 text-green-800' : filterName === 'filterAppSent' }" @click="filterAppSent">
+            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-sm text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-green-200 hover:bg-green-300 text-green-800' : filterName === 'filterAppSent' }" @click="filterAppSent">
               Application Sent
             </button>
-            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-xs text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-blue-200 hover:bg-blue-300 text-blue-800' : filterName === 'filterInterviewSet' }" @click="filterInterviewSet">
+            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-sm text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-blue-200 hover:bg-blue-300 text-blue-800' : filterName === 'filterInterviewSet' }" @click="filterInterviewSet">
               Interview Set
             </button>
-            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-xs text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-red-200 hover:bg-red-300 text-red-800' : filterName === 'filterRejected' }" @click="filterRejected">
+            <button class="bg-gray-400 rounded-full px-3 py-2 font-semibold text-center text-sm text-gray-800 m-1 hover:bg-gray-500" :class="{ 'bg-red-200 hover:bg-red-300 text-red-800' : filterName === 'filterRejected' }" @click="filterRejected">
               Rejected
             </button>
           </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center h-full text-gray-900 p-8 rounded bg-gray-100">
-    <h2 class="uppercase pb-4 text-3xl">
+    <h2 class="uppercase pb-6 text-3xl">
       Welcome to <span class="font-bold">JobHuntBuddy</span>
     </h2>
     <p class="text-lg">
