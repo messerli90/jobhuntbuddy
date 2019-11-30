@@ -27,9 +27,9 @@
       The only thing left to do is
     </p>
     <div class="mt-4">
-      <nuxt-link to="/leads/create" class="flex flex-row items-center justify-center bg-blue-900 hover:bg-blue-800 text-white rounded-full shadow py-3 pl-6 pr-2">
+      <nuxt-link to="/leads/create" class="flex flex-row items-center justify-center bg-blue-700 hover:bg-blue-800 text-white rounded-full shadow py-3 pl-6 pr-2">
         <span class="mr-4">Start tracking your first lead</span>
-        <span class="bg-blue-700 rounded-full w-6 h-6 flex items-center justify-center text-xs">
+        <span class="bg-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs">
           <fa :icon="['fas', 'chevron-right']" />
         </span>
       </nuxt-link>

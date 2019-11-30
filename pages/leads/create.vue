@@ -1,6 +1,6 @@
 <template>
   <div class="p-2 mb-2">
-    <div class="py-2">
+    <div class="w-full lg:w-2/3 mx-auto py-2">
       <nuxt-link to="/leads" class="text-gray-600 hover:text-gray-800 hover:underline">
         &lt; Back to Leads
       </nuxt-link>

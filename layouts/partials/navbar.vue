@@ -2,7 +2,7 @@
   <header class="bg-gray-900 fixed top-0 inset-x-0 z-50">
     <div class="container sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
       <div class="flex items-center justify-between px-4 py-3 sm:p-0 bg-gray-900">
-        <nuxt-link to="/" class="text-gray-100 text-xl font-bold">
+        <nuxt-link :to="authenticated ? '/leads' : '/'" class="text-gray-100 text-xl font-bold">
           Job<span class="font-thin">Hunt</span>Buddy<span class="font-thin">.co</span>
           <!-- <img src="@/assets/logo2.svg" alt="" class="h-8"> -->
         </nuxt-link>
@@ -23,18 +23,24 @@
           </button>
         </div>
       </div>
-      <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4 sm:flex sm:p-0">
-        <nuxt-link
+      <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4 sm:flex sm:items-center  sm:p-0">
+        <!-- <nuxt-link
           v-if="authenticated"
-          to="/leads"
-          class="block px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+          to="/leads/create"
+          class="block px-4 py-2 text-white font-semibold bg-blue-700 hover:bg-blue-800 rounded-full sm:mt-0 sm:ml-2"
         >
-          Track Applications
+          Track New Lead
+        </nuxt-link> -->
+        <nuxt-link v-if="authenticated" to="/leads/create" class="flex flex-row items-center justify-center bg-blue-700 hover:bg-blue-800 text-white rounded-full shadow py-2 pl-6 pr-2">
+          <span class="mr-4 font-semibold">Track New Lead</span>
+          <span class="bg-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs">
+            <fa :icon="['fas', 'chevron-right']" />
+          </span>
         </nuxt-link>
         <a
           v-if="authenticated"
           href="#"
-          class="block mt-1 px-2 py-1 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
+          class="block mt-1 px-2 py-2 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
           title="Sign out"
           @click.prevent="logout"
         >

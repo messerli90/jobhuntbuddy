@@ -22,7 +22,7 @@
         </p> -->
       </div>
       <hr class="m-6 w-2/3 mx-auto">
-      <div class="flex flex-wrap md:flex-row md:content-around w-full mx-auto text-sm text-center">
+      <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">
         <div class="w-1/2 lg:w-1/4 px-2 py-3">
           <h5 class="text-gray-700 font-semibold">
             Company Website
