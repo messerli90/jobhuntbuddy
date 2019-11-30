@@ -1,5 +1,10 @@
 <template>
   <div class="p-2 mb-2">
+    <div class="py-2">
+      <nuxt-link to="/leads" class="text-gray-600 hover:text-gray-800 hover:underline">
+        &lt; Back to Leads
+      </nuxt-link>
+    </div>
     <div class="rounded shadow bg-white w-full lg:w-2/3 mx-auto">
       <h1 class="text-2xl uppercase text-center p-4 md:p-8 text-gray-900 font-thin">
         {{ title }}

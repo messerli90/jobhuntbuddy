@@ -47,6 +47,18 @@ export const getters = {
   },
   show (state) {
     return state.lead
+  },
+  prospects (state) {
+    return state.list.filter(lead => lead.status === 'prospect')
+  },
+  appSent (state) {
+    return state.list.filter(lead => lead.status === 'application-sent')
+  },
+  interviewSet (state) {
+    return state.list.filter(lead => lead.status === 'interview-set')
+  },
+  rejected (state) {
+    return state.list.filter(lead => lead.status === 'rejected')
   }
 }
 
