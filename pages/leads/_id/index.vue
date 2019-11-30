@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
-      <nuxt-link to="/lead/edit" class="bg-blue-400 py-2 px-3 rounded text-white md:text-sm mr-2 w-full md:w-auto">
+      <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-blue-400 py-2 px-3 rounded text-white md:text-sm mr-2 w-full md:w-auto">
         Edit Lead
       </nuxt-link>
       <div class="relative">

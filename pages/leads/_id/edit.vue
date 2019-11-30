@@ -175,7 +175,7 @@
 
 <script>
 import { required, minLength, url } from 'vuelidate/lib/validators'
-import { STATUSES, EMPTY_LEAD } from '~/store/leads'
+import { STATUSES } from '~/store/leads'
 export default {
   data () {
     return {
@@ -198,6 +198,9 @@ export default {
     }
   },
   computed: {
+    lead () {
+      return this.$store.getters['leads/show']
+    },
     title () {
       return this.form.companyName
         ? 'An exciting new opportunity at '
@@ -223,8 +226,10 @@ export default {
     }
   },
   mounted () {
+    const leadId = this.$route.params.id
+    this.$store.dispatch('leads/setLead', leadId)
     this.form = {
-      ...EMPTY_LEAD
+      ...this.lead
     }
   },
   methods: {

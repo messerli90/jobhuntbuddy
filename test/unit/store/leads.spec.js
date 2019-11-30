@@ -1,5 +1,13 @@
 import { mutations } from '~/store/leads'
 
+// const test = require('firebase-functions-test')()
+
+beforeAll(() => {
+  jest.mock('firebase', () => ({
+    initializeApp: jest.fn()
+  }))
+})
+
 describe('mutations', () => {
   it('sets list to an array of', () => {
     const state = { list: [] }
