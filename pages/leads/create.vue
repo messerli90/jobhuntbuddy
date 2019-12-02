@@ -133,7 +133,7 @@
               placeholder="Gavin Belson"
             >
             <p class="text-gray-600 text-xs italic">
-              It helps to know with whom you'll be in contact with
+              It helps to know with whom you'll be in contact
             </p>
           </div>
           <div class="w-full md:w-1/2 px-3">
