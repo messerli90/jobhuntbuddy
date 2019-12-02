@@ -34,7 +34,7 @@
         <nuxt-link v-if="authenticated" to="/leads/create" class="flex flex-row items-center justify-center bg-blue-700 hover:bg-blue-800 text-white rounded-full shadow py-2 pl-6 pr-2">
           <span class="mr-4 font-semibold">Track New Lead</span>
           <span class="bg-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs">
-            <fa :icon="['fas', 'chevron-right']" />
+            <fa :icon="['fas', 'chevron-right']" class="h-4" />
           </span>
         </nuxt-link>
         <a
@@ -44,7 +44,7 @@
           title="Sign out"
           @click.prevent="logout"
         >
-          <fa :icon="['fas', 'sign-out-alt']" />
+          <fa :icon="['fas', 'sign-out-alt']" class="h-4" />
           <span class="sm:hidden">Sign Out</span>
         </a>
         <nuxt-link
