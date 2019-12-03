@@ -21,7 +21,7 @@
     </h1>
     <div class="container flex flex-col md:flex-row px-4">
       <div class="w-full flex flex-col items-center py-4 md:px-4">
-        <img src="~/assets/images/page-under-construction.png" alt="" class="w-2/3 border-b-2 border-indigo-700 rounded">
+        <img src="~/assets/images/page-under-construction.png" alt="" class="w-2/3 border-b-2 border-teal-500 rounded">
         <h3 class="text-indigo-700 text-xl py-2">
           Track the status
         </h3>
@@ -30,7 +30,7 @@
         </p>
       </div>
       <div class="w-full flex flex-col items-center py-4 md:px-4">
-        <img src="~/assets/images/waiting.png" alt="" class="w-2/3 border-b-2 border-indigo-700 rounded">
+        <img src="~/assets/images/waiting.png" alt="" class="w-2/3 border-b-2 border-teal-500 rounded">
         <h3 class="text-indigo-700 text-xl py-2">
           Set Reminders
         </h3>
@@ -39,7 +39,7 @@
         </p>
       </div>
       <div class="w-full flex flex-col items-center py-4 md:px-4">
-        <img src="~/assets/images/done-1.png" alt="" class="w-2/3 border-b-2 border-indigo-700 rounded">
+        <img src="~/assets/images/done-1.png" alt="" class="w-2/3 border-b-2 border-teal-500 rounded">
         <h3 class="text-indigo-700 text-xl py-2">
           Keep Notes
         </h3>

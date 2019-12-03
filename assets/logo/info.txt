@@ -1,0 +1,18 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: acre-medium
+font link: https://www.fontspring.com/fonts/jonathan-ball/acre/acre-medium
+font author: Jonathan Ball
+font author site: https://jonathanballdesign.com/index.php
+Slogan Font: Aleo-Light.otf
+
+icon designer: Luis Prado
+icon designer link: /Luis
+        
+
+fontColor: {"hex":"#38B2AC"}
+bgColor: {"hex":"#434190"}
+iconColor: {"hex":"#38B2AC"}
+sloganColor: {"hex":"#EAE6FE"}
+      
