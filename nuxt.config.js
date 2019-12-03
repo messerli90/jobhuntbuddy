@@ -1,5 +1,4 @@
 import path from 'path'
-require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -7,7 +6,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || 'JobHuntBuddy',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
