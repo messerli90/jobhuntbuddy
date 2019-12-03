@@ -5,7 +5,7 @@
         <h2 class="text-3xl tracking-wide text-center mb-8 text-gray-800 font-semibold">
           Sign In
         </h2>
-        <div class="rounded shadow bg-white p-8">
+        <div class="rounded shadow bg-white p-8 border-t-2 border-indigo-700">
           <form @submit.prevent="handleSubmit">
             <div class="relative mb-3">
               <label
@@ -47,7 +47,7 @@
             </div>
             <button
               type="submit"
-              class="bg-blue-500 hover:bg-blue-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
+              class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
               :class="{ 'bg-gray-200': sending }"
               :disabled="!!sending"
             >
@@ -58,9 +58,9 @@
             </p>
           </form>
         </div>
-        <div class="text-center mt-8">
+        <div class="flex flex-row justify-between text-center p-4 text-gray-600">
           <p>Don't have an account yet?</p>
-          <p><a href="/auth/signup" class="text-blue-500 hover:underline">Sign up now</a></p>
+          <p><a href="/auth/signup" class="text-gray-800 hover:text-indigo-700">Sign up now</a></p>
         </div>
       </div>
     </div>

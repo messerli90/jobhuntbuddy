@@ -1,11 +1,11 @@
 <template>
-  <div class="p-2 mb-2">
-    <div class="w-full lg:w-2/3 mx-auto py-2">
-      <nuxt-link to="/leads" class="text-gray-600 hover:text-gray-800 hover:underline">
+  <div class="container">
+    <div class="w-full lg:w-2/3 mx-auto pb-2">
+      <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
         &lt; Back to Leads
       </nuxt-link>
     </div>
-    <div class="rounded shadow bg-white w-full lg:w-2/3 mx-auto">
+    <div class="rounded shadow bg-white w-full lg:w-2/3 mx-auto border-t-2 border-indigo-700">
       <h1 class="text-2xl uppercase text-center p-4 md:p-8 text-gray-900 font-thin">
         {{ title }}
         <br>
@@ -170,7 +170,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn mb-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
+        <button type="submit" class="btn bg-indigo-700 :hover:bg-indigo-800 mb-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
           Save Lead
         </button>
       </form>

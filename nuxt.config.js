@@ -48,6 +48,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/moment',
     'nuxt-purgecss',
     ['nuxt-fontawesome', {
       component: 'fa',
@@ -57,7 +58,7 @@ export default {
         // you must have it in your node_modules to actually import
         {
           set: '@fortawesome/free-solid-svg-icons',
-          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight']
+          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight', 'faChevronDown']
         }
       ]
     }]

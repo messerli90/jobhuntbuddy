@@ -28,7 +28,7 @@ export default {
       if (!this.statusObj) {
         return 'text-gray-800 bg-gray-200'
       }
-      return `text-${this.statusObj.baseColor}-800 bg-${this.statusObj.baseColor}-200 text-${this.size}`
+      return `text-white bg-${this.statusObj.baseColor}-500 text-${this.size}`
     },
     title () {
       if (!this.statusObj) {

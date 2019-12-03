@@ -27,7 +27,11 @@ async function create (lead, userId) {
   let res
   try {
     delete lead.id
-    res = await ref.set(lead)
+    const newLead = {
+      ...lead,
+      createdAt: new Date()
+    }
+    res = await ref.set(newLead)
   } catch (e) {
     // Handle Error
   }
