@@ -36,11 +36,11 @@
           <nuxt-link
             v-if="!authenticated"
             to="/auth/signin"
-            class="hidden sm:block text-gray-700 font-semibold hover:text-indigo-700 mr-6"
+            class="block py-2 text-center text-white lg:text-gray-700 font-semibold hover:text-teal-200 lg:hover:text-indigo-700 mr-6"
           >
             Sign In
           </nuxt-link>
-          <CTABtn v-if="!authenticated" target="/auth/signup" title="Try it FREE" />
+          <CTABtn v-if="!authenticated" target="/auth/signup" title="Get Started" />
         </div>
       </div>
     </div>

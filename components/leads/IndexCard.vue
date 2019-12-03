@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex items-center justify-between bg-gray-100 p-6 shadow-md hover:shadow-lg rounded border-gray-700 mb-3">
+  <div class="card flex items-center justify-between bg-gray-100 p-6 shadow-md hover:shadow-lg rounded border-l-2 mb-3" :class="'border-'+statusObj.baseColor+'-500'">
     <div class="w-3/5 flex-grow-0">
       <h2 class="font-semibold text-lg text-gray-900 truncate">
         {{ lead.companyName }}
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { STATUSES } from '~/store/leads'
 import StatusTag from '~/components/statusTag'
 export default {
   components: { StatusTag },
@@ -22,6 +23,11 @@ export default {
     lead: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    statusObj () {
+      return STATUSES.find(s => s.key === this.lead.status)
     }
   }
 }

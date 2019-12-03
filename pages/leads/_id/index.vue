@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-2 w-full md:w-2/3 lg:w-1/2">
+  <div class="container p-2 lg:p-0 mb-2 w-full md:w-2/3 lg:w-1/2">
     <div class="pb-2">
       <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
         &lt; Back to Leads
@@ -68,7 +68,7 @@
         </h5>
         <div v-if="lead.notes" class="bg-gray-100 rounded py-2 px-4 mt-2">
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="compiledMarkdown" />
+          <div class="text-gray-800 markdown-style" v-html="compiledMarkdown" />
         </div>
         <div v-else class="bg-gray-100 rounded py-2 px-4 mt-2">
           <span class="text-gray-700 italic">No notes.</span>
@@ -156,3 +156,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.markdown-style {
+  ul, ol {
+    list-style-type: disc;
+    margin-left: 2rem;
+    padding: 5px 0;
+
+    li {
+      padding: 2px 0;
+    }
+  }
+}
+</style>
