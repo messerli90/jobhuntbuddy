@@ -1,0 +1,42 @@
+.terms {
+  color: #4a5568;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #434190;
+  }
+  h2 {
+    font-size: 1.5rem;
+    padding: 1rem 0;
+  }
+  h3 {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+  }
+
+  p {
+    padding: 0.3rem 0;
+  }
+
+  a {
+    color: #38B2AC;
+  }
+
+  ul {
+    padding: 0 1rem;
+    list-style: inherit;
+  }
+  ol {
+    padding: 0 2rem;
+
+    &.alpha {
+      list-style-type: lower-alpha;
+    }
+    &.roman {
+      list-style-type: lower-roman;
+    }
+
+    li {
+      padding: 0.4rem 0;
+    }
+  }
+}
