@@ -16,7 +16,7 @@ export default {
       { hid: 'themeColor', name: 'theme-color', content: '#434190' },
       { hid: 'ogtitle', property: 'og:title', content: 'It\'s how you find a job!' },
       { hid: 'ogdescription', property: 'og:description', content: 'Manage your job search by tracking leads and staying on top of the hunt.' },
-      { hid: 'ogimage', property: 'og:image', content: 'http://jobhuntbuddy.co/_nuxt/img/db82e9d.png' },
+      { hid: 'ogimage', property: 'og:image', content: 'https://jobhuntbuddy.co/images/screenshot_leads_list.png' },
       { hid: 'ogsite_name', property: 'og:site_name', content: 'JobHuntBuddy' },
       { hid: 'ogurl', property: 'og:url', content: 'https://jobhuntbuddy.co' },
       { hid: 'ogtype', property: 'og:type', content: 'website' }

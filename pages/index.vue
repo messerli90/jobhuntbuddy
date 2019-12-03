@@ -13,7 +13,7 @@
     </div>
     <div class="w-full relative bg-indigo-500 py-8 md:py-32">
       <div class="rounded overflow-hidden shadow-lg w-4/5 lg:w-1/2 mx-auto">
-        <img src="~/assets/images/screen4.png" alt="" class="w-full">
+        <img src="~/assets/images/screen4-min.png" alt="" class="w-full">
       </div>
     </div>
     <h1 class="text-indigo-800 text-center text-3xl py-8">
