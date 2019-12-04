@@ -89,9 +89,6 @@
                 Passwords must be identical.
               </p>
             </div>
-            <p v-show="errorMessage" class="py-4 text-red-300 italic">
-              {{ errorMessage }}
-            </p>
             <button
               type="submit"
               class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
@@ -100,6 +97,19 @@
             >
               Register
             </button>
+            <p class="text-gray-600 text-center pt-8 pb-2">
+              Or use your social accounts
+            </p>
+            <button
+              type="button"
+              class="btn--twitter font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full"
+              @click.prevent="loginWithTwitter"
+            >
+              Sign in with Twitter
+            </button>
+            <p v-show="errorMessage" class="py-4 text-red-400 italic">
+              {{ errorMessage }}
+            </p>
           </form>
         </div>
         <div class="flex flex-col items-center p-4">
@@ -162,6 +172,17 @@ export default {
         }
       }
       this.saving = false
+    },
+    async loginWithTwitter () {
+      this.sending = true
+
+      try {
+        await this.$store.dispatch('users/loginWithTwitter')
+        this.$router.push('/leads')
+      } catch (error) {
+        this.errorMessage = error.message
+        this.sending = false
+      }
     }
   }
 }

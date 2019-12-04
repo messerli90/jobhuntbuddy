@@ -8,3 +8,11 @@
 .page-leave-to {
   opacity: 0;
 }
+
+.btn--twitter {
+  background: #1da1f2;
+
+  &:hover {
+    background: darken($color: #1da1f2, $amount: 10%)
+  }
+}

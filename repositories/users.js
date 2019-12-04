@@ -1,5 +1,4 @@
-import firebase from 'firebase/app'
-import firebaseApp, { fireDb } from '~/plugins/firebase'
+import firebaseApp, { fireDb, twitterAuth } from '~/plugins/firebase'
 
 /**
  * Handle new user registration using Email/Password
@@ -96,7 +95,7 @@ async function loginWithEmailPassword (email, password) {
  * @param {String} email
  */
 async function handleSendPasswordResetEmail (email) {
-  const auth = firebase.auth()
+  const auth = firebaseApp.auth()
 
   try {
     await auth.sendPasswordResetEmail(email)
@@ -105,8 +104,19 @@ async function handleSendPasswordResetEmail (email) {
   }
 }
 
+async function handleTwitterAuth () {
+  const firebaseUser = await firebaseApp.auth().signInWithPopup(twitterAuth)
+    .catch((e) => {
+      throw new Error(e.message)
+    })
+  // await _updateFirebaseUserName(firebaseUser, name)
+  _writeUserToFirestore(firebaseUser)
+  return firebaseUser
+}
+
 export {
   registerWithEmailPassword,
   loginWithEmailPassword,
-  handleSendPasswordResetEmail
+  handleSendPasswordResetEmail,
+  handleTwitterAuth
 }

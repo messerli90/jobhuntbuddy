@@ -53,7 +53,17 @@
             >
               {{ sending ? 'Signing in...' : 'Sign in' }}
             </button>
-            <p v-show="errorMessage" class="py-4 text-xs text-red-500 italic">
+            <p class="text-gray-600 text-center pt-8 pb-2">
+              Or use your social accounts
+            </p>
+            <button
+              type="button"
+              class="btn--twitter font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full"
+              @click.prevent="loginWithTwitter"
+            >
+              Sign in with Twitter
+            </button>
+            <p v-show="errorMessage" class="py-4 text-red-400 italic">
               {{ errorMessage }}
             </p>
           </form>
@@ -111,6 +121,17 @@ export default {
           this.errorMessage = error.message
           this.sending = false
         }
+      }
+    },
+    async loginWithTwitter () {
+      this.sending = true
+
+      try {
+        await this.$store.dispatch('users/loginWithTwitter')
+        this.$router.push('/leads')
+      } catch (error) {
+        this.errorMessage = error.message
+        this.sending = false
       }
     }
   }

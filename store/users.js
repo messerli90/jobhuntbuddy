@@ -34,6 +34,13 @@ export const actions = {
       await dispatch('setUser', firebaseUser.user)
     })
   },
+  async loginWithTwitter ({ dispatch }) {
+    await userRepo.handleTwitterAuth().then(async (firebaseUser) => {
+      const token = await firebaseApp.auth().currentUser.getIdToken(true)
+      Cookies.set('access_token', token)
+      await dispatch('setUser', firebaseUser.user)
+    })
+  },
   async logout ({ dispatch, commit }) {
     await firebaseApp.auth().signOut()
     Cookies.remove('access_token')
