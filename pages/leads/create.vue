@@ -153,6 +153,39 @@
           </div>
         </div>
 
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="compensation"
+            >
+              Compensation
+            </label>
+            <input
+              id="compensation"
+              v-model.trim="form.compensation"
+              class="text-input"
+              type="text"
+              placeholder="$80,000 / yr"
+            >
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="location"
+            >
+              Location
+            </label>
+            <input
+              id="location"
+              v-model.trim="form.location"
+              class="text-input"
+              type="text"
+              placeholder="Silicon Valley, CA"
+            >
+          </div>
+        </div>
+
         <div class="flex flex-wrap -mx-3 mb-3">
           <div class="w-full px-3 mb-3 md:mb-0">
             <label

@@ -105,6 +105,9 @@ export const EMPTY_LEAD = {
   contactName: null,
   contactEmail: null,
   sentDate: null,
+  compensation: null,
+  location: null,
+  createdAt: new Date(),
   notes: null
 }
 

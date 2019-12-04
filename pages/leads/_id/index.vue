@@ -62,6 +62,30 @@
           </a>
         </div>
       </div>
+      <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">
+        <div class="w-1/2 lg:w-1/4 px-2 py-3">
+          <h5 class="text-gray-700 font-semibold">
+            Compensation
+          </h5>
+          <p v-if="lead.compensation" class="text-gray-900">
+            {{ lead.compensation }}
+          </p>
+          <span v-else class="text-gray-500 italic">
+            No compensation specified
+          </span>
+        </div>
+        <div class="w-1/2 lg:w-1/4 px-2 py-3">
+          <h5 class="text-gray-700 font-semibold">
+            Location
+          </h5>
+          <p v-if="lead.location" class="text-gray-900">
+            {{ lead.location }}
+          </p>
+          <span v-else class="text-gray-500 italic">
+            No location specified
+          </span>
+        </div>
+      </div>
       <div class="mx-auto text-sm mt-6">
         <h5 class="text-gray-700 font-semibold">
           Notes
