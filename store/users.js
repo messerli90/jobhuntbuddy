@@ -48,6 +48,9 @@ export const actions = {
     }
     await commit('setUser', userInfo)
     await commit('setUid', userInfo.uid)
+  },
+  async sendPasswordResetEmail ({ commit }, email) {
+    await userRepo.handleSendPasswordResetEmail(email)
   }
 }
 

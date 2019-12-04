@@ -1,3 +1,4 @@
+import firebase from 'firebase/app'
 import firebaseApp, { fireDb } from '~/plugins/firebase'
 
 /**
@@ -67,7 +68,23 @@ async function loginWithEmailPassword (email, password) {
   return firebaseUser
 }
 
+/**
+ * Send a password reset email to given email address
+ *
+ * @param {String} email
+ */
+async function handleSendPasswordResetEmail (email) {
+  const auth = firebase.auth()
+
+  try {
+    await auth.sendPasswordResetEmail(email)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+}
+
 export {
   registerWithEmailPassword,
-  loginWithEmailPassword
+  loginWithEmailPassword,
+  handleSendPasswordResetEmail
 }
