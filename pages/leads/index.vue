@@ -1,8 +1,11 @@
 <template>
-  <div id="lead-index-wrapper" class="container pt-8 px-2 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
+  <div id="lead-index-wrapper" class="container pt-4 px-2 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
     <client-only>
       <div v-if="leads.length">
-        <div class="mb-4 flex flex-col items-center w-full">
+        <div class="w-full mb-4">
+          <input v-model="search" type="search" class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded-full" placeholder="Search leads...">
+        </div>
+        <div class="mb-4 w-full">
           <div class="flex flex-wrap items-center justify-center md:justify-around w-full text-gray-800">
             <button class="bg-gray-400 rounded-full px-3 py-2 font-medium text-center text-sm m-1 hover:bg-gray-500" :class="{ 'bg-indigo-700 text-white hover:bg-indigo-800' : filterName === 'clearFilter' }" @click="clearFilter">
               All Leads
@@ -42,7 +45,8 @@ export default {
   data () {
     return {
       filteredList: [],
-      filterName: 'clearFilter'
+      filterName: 'clearFilter',
+      search: ''
     }
   },
   computed: {
@@ -80,6 +84,9 @@ export default {
     filterRejected () {
       this.filterName = 'filterRejected'
       this.filteredList = this.rejected
+    },
+    handleSearch () {
+      // TODO debounce and search companyName & jobTitle on update
     }
   }
 }
