@@ -16,3 +16,12 @@
     background: darken($color: #1da1f2, $amount: 10%)
   }
 }
+
+.btn--google {
+  background: #DB4437;
+
+  &:hover {
+    background: darken($color: #DB4437, $amount: 10%)
+  }
+}
+

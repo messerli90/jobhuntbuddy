@@ -1,4 +1,4 @@
-import firebaseApp, { fireDb, twitterAuth } from '~/plugins/firebase'
+import firebaseApp, { fireDb, twitterAuth, googleAuth } from '~/plugins/firebase'
 
 /**
  * Handle new user registration using Email/Password
@@ -106,10 +106,30 @@ async function handleSendPasswordResetEmail (email) {
 
 async function handleTwitterAuth () {
   const firebaseUser = await firebaseApp.auth().signInWithPopup(twitterAuth)
-    .catch((e) => {
-      throw new Error(e.message)
+    .catch((error) => {
+      const errorMessage = error.message
+      const errorCode = error.code
+      if (errorCode === 'auth/account-exists-with-different-credential') {
+        throw new Error('Looks like you already have an account, but signed up with a different provider, or you used email/password to create your account.')
+      } else {
+        throw new Error(errorMessage)
+      }
     })
-  // await _updateFirebaseUserName(firebaseUser, name)
+  _writeUserToFirestore(firebaseUser)
+  return firebaseUser
+}
+
+async function handleGoogleAuth () {
+  const firebaseUser = await firebaseApp.auth().signInWithPopup(googleAuth)
+    .catch((error) => {
+      const errorMessage = error.message
+      const errorCode = error.code
+      if (errorCode === 'auth/account-exists-with-different-credential') {
+        throw new Error('Looks like you already have an account, but signed up with a different provider, or you used email/password to create your account.')
+      } else {
+        throw new Error(errorMessage)
+      }
+    })
   _writeUserToFirestore(firebaseUser)
   return firebaseUser
 }
@@ -118,5 +138,6 @@ export {
   registerWithEmailPassword,
   loginWithEmailPassword,
   handleSendPasswordResetEmail,
-  handleTwitterAuth
+  handleTwitterAuth,
+  handleGoogleAuth
 }

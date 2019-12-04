@@ -15,7 +15,8 @@ const firebaseConfig = {
 export default !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 
 const fireDb = firebase.firestore()
-// var provider = new firebase.auth.TwitterAuthProvider();
 const twitterAuth = new firebase.auth.TwitterAuthProvider()
+const googleAuth = new firebase.auth.GoogleAuthProvider()
+googleAuth.addScope('email')
 
-export { fireDb, twitterAuth }
+export { fireDb, twitterAuth, googleAuth }

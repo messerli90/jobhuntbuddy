@@ -102,10 +102,17 @@
             </p>
             <button
               type="button"
-              class="btn--twitter font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full"
+              class="btn--twitter font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full my-1"
               @click.prevent="loginWithTwitter"
             >
               Sign in with Twitter
+            </button>
+            <button
+              type="button"
+              class="btn--google font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full my-1"
+              @click.prevent="loginWithGoogle"
+            >
+              Sign in with Google
             </button>
             <p v-show="errorMessage" class="py-4 text-red-400 italic">
               {{ errorMessage }}
@@ -178,6 +185,17 @@ export default {
 
       try {
         await this.$store.dispatch('users/loginWithTwitter')
+        this.$router.push('/leads')
+      } catch (error) {
+        this.errorMessage = error.message
+        this.sending = false
+      }
+    },
+    async loginWithGoogle () {
+      this.sending = true
+
+      try {
+        await this.$store.dispatch('users/loginWithGoogle')
         this.$router.push('/leads')
       } catch (error) {
         this.errorMessage = error.message
