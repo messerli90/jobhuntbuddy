@@ -170,7 +170,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn bg-indigo-700 :hover:bg-indigo-800 mb-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
+        <button type="submit" class="btn mb-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
           Save Lead
         </button>
       </form>

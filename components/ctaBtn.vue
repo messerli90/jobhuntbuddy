@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <nuxt-link :to="target" :class="'flex flex-row items-center justify-center bg-'+color+'-700 hover:bg-'+color+'-800 text-white rounded-full shadow py-2 pl-6 pr-2'">
+    <nuxt-link :to="target" :class="'flex flex-row items-center justify-center bg-'+color+'-700 hover:bg-'+color+'-800 text-white rounded-full shadow py-2 pl-6 pr-2 text-'+size+''">
       <span class="mr-4 font-semibold">{{ title }}</span>
       <span :class="'bg-teal-500 rounded-full w-6 h-6 flex items-center justify-center text-xs'">
         <fa :icon="['fas', 'chevron-right']" class="h-4" />
@@ -24,6 +24,12 @@ export default {
       type: String,
       default () {
         return 'indigo'
+      }
+    },
+    size: {
+      type: String,
+      default () {
+        return 'base'
       }
     }
   }

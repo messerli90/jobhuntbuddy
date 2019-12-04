@@ -1,7 +1,7 @@
 <template>
-  <section class="container pb-32 pt-32 md:pt-48">
+  <section class="container py-12 md:pt-48">
     <div class="flex justify-center">
-      <div class="w-10/12 sm:w-8/12 md:w-8/12 lg:w-6/12 xl:w-4/12">
+      <div class="w-11/12 sm:w-8/12 md:w-8/12 lg:w-6/12 xl:w-4/12">
         <h2 class="text-3xl tracking-wide text-center mb-8 text-gray-800 font-semibold">
           Sign In
         </h2>
@@ -58,7 +58,7 @@
             </p>
           </form>
         </div>
-        <div class="flex flex-row justify-between text-center p-4 text-gray-600">
+        <div class="flex flex-col items-center p-4 text-gray-600">
           <p>Don't have an account yet?</p>
           <p><a href="/auth/signup" class="text-gray-800 hover:text-indigo-700">Sign up now</a></p>
         </div>

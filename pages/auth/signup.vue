@@ -1,7 +1,7 @@
 <template>
-  <section class="container py-32">
+  <section class="container py-12 md:pt-48">
     <div class="flex justify-center">
-      <div class="w-10/12 sm:w-8/12 md:w-8/12 lg:w-6/12 xl:w-4/12">
+      <div class="w-11/12 sm:w-8/12 md:w-8/12 lg:w-6/12 xl:w-4/12">
         <h2 class="text-3xl tracking-wide text-center mb-8 text-gray-800 font-semibold">
           Register
         </h2>
@@ -83,7 +83,7 @@
             </button>
           </form>
         </div>
-        <div class="flex flex-row justify-between p-4">
+        <div class="flex flex-col items-center p-4">
           <p class="text-gray-600">
             Already have an account?
           </p>
