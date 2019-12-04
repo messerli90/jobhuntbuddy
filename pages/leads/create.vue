@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <div class="w-full lg:w-2/3 mx-auto pb-2">
+  <div class="container p-2 lg:p-0 mb-2 w-full lg:w-3/5 xl:w-2/3">
+    <div class="w-full lg:w-2/3 mx-auto">
       <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
         &lt; Back to Leads
       </nuxt-link>
     </div>
     <div class="rounded shadow bg-white w-full lg:w-2/3 mx-auto border-t-2 border-indigo-700">
-      <h1 class="text-2xl uppercase text-center p-4 md:p-8 text-gray-900 font-thin">
+      <h1 class="text-xl md:text-2xl uppercase text-center p-4 md:p-8 text-gray-900 font-thin">
         {{ title }}
         <br>
         <span class="font-medium">{{ form.companyName }}</span>
