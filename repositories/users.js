@@ -4,14 +4,17 @@ import firebaseApp, { fireDb } from '~/plugins/firebase'
 /**
  * Handle new user registration using Email/Password
  *
- * @param {String} email
- * @param {String} password
+ * @param {Object} form
  *
  * @returns {firebase.auth.UserCredential} firebaseUser
  */
-async function registerWithEmailPassword (email, password) {
-  const firebaseUser = await createUserWithEmailPassword(email, password)
-  writeUserToFirestore(firebaseUser)
+async function registerWithEmailPassword (form) {
+  const email = form.email
+  const password = form.password
+  const name = form.name
+  const firebaseUser = await _createUserWithEmailPassword(email, password)
+  await _updateFirebaseUserName(firebaseUser, name)
+  _writeUserToFirestore(firebaseUser)
   return firebaseUser
 }
 
@@ -23,7 +26,7 @@ async function registerWithEmailPassword (email, password) {
  *
  * @returns Promise<firebase.auth.UserCredential>
  */
-async function createUserWithEmailPassword (email, password) {
+async function _createUserWithEmailPassword (email, password) {
   const firebaseUser = await firebaseApp.auth().createUserWithEmailAndPassword(email, password)
     .catch((error) => {
       const errorMessage = error.message
@@ -36,14 +39,33 @@ async function createUserWithEmailPassword (email, password) {
  * Updates user record on Firestore
  *
  * @param {firebase.auth.UserCredential} firebaseUser
+ * @param {String} name
  */
-function writeUserToFirestore (firebaseUser) {
+function _writeUserToFirestore (firebaseUser) {
   const ref = fireDb.collection('users').doc(firebaseUser.user.uid)
   ref.set({
+    displayName: firebaseUser.user.displayName,
     email: firebaseUser.user.email
   }).catch((e) => {
     throw new Error(e.message)
   })
+}
+
+/**
+ * Updates a user's display name on UserCredential
+ * ( Does not update Firestore reference )
+ *
+ * @param {firebase.auth.UserCredential} firebaseUser
+ * @param {String} name
+ */
+async function _updateFirebaseUserName (firebaseUser, name) {
+  const user = firebaseUser.user
+  await user.updateProfile({
+    displayName: name
+  }).catch((e) => {
+    throw new Error(e.message)
+  })
+  return user
 }
 
 /**

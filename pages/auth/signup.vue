@@ -10,6 +10,25 @@
             <div class="relative mb-3">
               <label
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="name"
+              >
+                Name
+              </label>
+              <input
+                id="name"
+                v-model.trim="$v.form.name.$model"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
+                :class="{ 'border-red-300': $v.form.name.$error }"
+                type="name"
+                placeholder=""
+              >
+              <p v-if="$v.form.name.$error && !$v.form.name.required" class="text-red-300 text-xs italic">
+                Name is required.
+              </p>
+            </div>
+            <div class="relative mb-3">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="email"
               >
                 Email
@@ -102,6 +121,7 @@ export default {
       sending: false,
       errorMessage: '',
       form: {
+        name: '',
         email: '',
         password: '',
         passwordConfirmation: ''
@@ -110,6 +130,9 @@ export default {
   },
   validations: {
     form: {
+      name: {
+        required
+      },
       email: {
         required,
         email

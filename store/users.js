@@ -21,7 +21,9 @@ export const getters = {
 
 export const actions = {
   async register ({ dispatch }, form) {
-    await userRepo.registerWithEmailPassword(form.email, form.password).then(async (firebaseUser) => {
+    await userRepo.registerWithEmailPassword(form).then(async (firebaseUser) => {
+      const token = await firebaseUser.user.getIdToken()
+      Cookies.set('access_token', token)
       await dispatch('setUser', firebaseUser.user)
     })
   },
@@ -39,6 +41,9 @@ export const actions = {
     await commit('setUid', null)
     await dispatch('leads/clear', null, { root: true })
   },
+  async sendPasswordResetEmail ({ commit }, email) {
+    await userRepo.handleSendPasswordResetEmail(email)
+  },
   async setUser ({ commit }, user) {
     const userInfo = {
       name: user.displayName,
@@ -48,9 +53,6 @@ export const actions = {
     }
     await commit('setUser', userInfo)
     await commit('setUid', userInfo.uid)
-  },
-  async sendPasswordResetEmail ({ commit }, email) {
-    await userRepo.handleSendPasswordResetEmail(email)
   }
 }
 
