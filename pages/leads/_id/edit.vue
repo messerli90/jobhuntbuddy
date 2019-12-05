@@ -213,7 +213,7 @@
 
 <script>
 import { required, minLength, url } from 'vuelidate/lib/validators'
-import { STATUSES } from '~/store/leads'
+import { STATUSES } from '~/helpers/leads'
 export default {
   data () {
     return {

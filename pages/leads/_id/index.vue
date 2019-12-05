@@ -14,12 +14,6 @@
       </h2>
       <div class="text-center my-4">
         <StatusTag :status="lead.status" size="xs" />
-        <!-- <span class="inline-block rounded-full py-1 px-4" :class="statusClass">
-          {{ lead.status }}
-        </span>
-        <p class="uppercase font-semibold text-xs">
-          Application Status
-        </p> -->
       </div>
       <hr class="m-6 w-2/3 mx-auto">
       <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">
@@ -137,7 +131,7 @@
 <script>
 import marked from 'marked'
 import StatusTag from '~/components/statusTag'
-import { STATUSES } from '~/store/leads'
+import { STATUSES } from '~/helpers/leads'
 export default {
   components: { StatusTag },
   data () {
@@ -146,8 +140,11 @@ export default {
     }
   },
   computed: {
+    loading () {
+      return !this.lead.companyName
+    },
     lead () {
-      return this.$store.getters['leads/show']
+      return this.$store.getters['leads/getLead']
     },
     compiledMarkdown () {
       return marked(String(this.lead.notes))
@@ -158,13 +155,13 @@ export default {
   },
   mounted () {
     const leadId = this.$route.params.id
-    this.$store.dispatch('leads/setLead', leadId)
+    this.$store.dispatch('leads/setLeadById', leadId)
   },
   methods: {
     async removeCurrent () {
       const confirmRemove = confirm('Are you sure you want to remove this lead?')
       if (confirmRemove) {
-        await this.$store.dispatch('leads/remove', this.lead)
+        await this.$store.dispatch('leads/removeLead', this.lead)
         this.$router.push({ path: '/leads' })
       }
     },
@@ -174,7 +171,7 @@ export default {
       }
       if (this.status !== '') {
         lead.status = this.status
-        this.$store.dispatch('leads/update', lead)
+        this.$store.dispatch('leads/updateLead', lead)
       }
     }
   }

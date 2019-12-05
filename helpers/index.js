@@ -20,3 +20,15 @@ export function getUserFromCookie (req) {
 export function getUserFromSession (req) {
   return req.session ? req.session.userId : null
 }
+
+export function debounce (fn, delay) {
+  let timeoutID = null
+  return function () {
+    clearTimeout(timeoutID)
+    const args = arguments
+    const that = this
+    timeoutID = setTimeout(function () {
+      fn.apply(that, args)
+    }, delay)
+  }
+}
