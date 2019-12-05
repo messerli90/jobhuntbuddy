@@ -19,7 +19,7 @@
         See all of your potential jobs in one place and track their status
       </h5>
       <div class="rounded overflow-hidden shadow-lg w-4/5 lg:w-1/2 mx-auto">
-        <img src="~/assets/images/screen4-min.png" alt="" class="w-full shadow-lg p-3 bg-gray-800 rounded-lg">
+        <img src="~/assets/images/screen_leads_list.png" alt="" class="w-full shadow-lg p-3 bg-gray-800 rounded-lg">
       </div>
     </div>
     <h1 class="text-indigo-800 text-center text-3xl pt-8 md:pt-16">
@@ -63,7 +63,7 @@
       </h5>
       <div class="container flex flex-col md:flex-row">
         <div class="w-full md:w-1/3 px-16 py-8">
-          <img src="~/assets/images/mobile_screen_lead_list2.png" alt="" class="w-full shadow-lg p-5 bg-gray-800 rounded-lg">
+          <img src="~/assets/images/mobile_screen_lead_list3.png" alt="" class="w-full shadow-lg p-5 bg-gray-800 rounded-lg">
         </div>
         <div class="w-full md:w-1/3 px-16 py-8">
           <img src="~/assets/images/mobile_screen_lead3.png" alt="" class="w-full shadow-lg p-5 bg-gray-800 rounded-lg">

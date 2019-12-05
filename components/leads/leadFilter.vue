@@ -31,9 +31,9 @@
     </div>
     <div class="flex justify-start">
       <div class="relative mb-3 pr-8">
-        <p v-click-outside="closeOrderDropDown" class="text-gray-700 cursor-pointer" @click="orderOpen = !orderOpen">
+        <p v-click-outside="closeOrderDropDown" class="text-gray-700 cursor-pointer flex items-center" @click="orderOpen = !orderOpen">
           <fa :icon="['fas', 'sort-amount-down']" class="h-4 mx-1" />
-          Order By
+          <span class="mr-1">Order By</span>
           <span v-show="orderChanged" class="font-semibold">{{ orderText }}</span>
         </p>
         <ul v-show="orderOpen" class="bg-white absolute z-20 px-3 py-2 mt-1 rounded shadow-lg text-gray-700 min-w-full">
