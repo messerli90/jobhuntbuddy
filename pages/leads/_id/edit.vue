@@ -237,7 +237,7 @@ export default {
   },
   computed: {
     lead () {
-      return this.$store.getters['leads/show']
+      return this.$store.getters['leads/getLead']
     },
     title () {
       return this.form.companyName
@@ -265,7 +265,7 @@ export default {
   },
   mounted () {
     const leadId = this.$route.params.id
-    this.$store.dispatch('leads/setLead', leadId)
+    this.$store.dispatch('leads/setLeadById', leadId)
     this.form = {
       ...this.lead
     }
@@ -278,7 +278,7 @@ export default {
         this.submitStatus = 'ERROR'
         this.saving = false
       } else {
-        await this.$store.dispatch('leads/update', this.form)
+        await this.$store.dispatch('leads/updateLead', this.form)
         this.$router.push({ path: '/leads/' + this.lead.id })
       }
     }

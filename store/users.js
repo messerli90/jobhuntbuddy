@@ -53,7 +53,7 @@ export const actions = {
     Cookies.remove('access_token')
     await commit('setUser', null)
     await commit('setUid', null)
-    await dispatch('leads/clear', null, { root: true })
+    await dispatch('leads/clearLeads', null, { root: true })
   },
   async sendPasswordResetEmail ({ commit }, email) {
     await userRepo.handleSendPasswordResetEmail(email)

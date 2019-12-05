@@ -94,14 +94,14 @@
       </div>
     </div>
     <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
-      <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-700 hover:bg-indigo-800 py-2 px-3 rounded text-white md:text-sm mr-2 w-full md:w-auto">
+      <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-700 hover:bg-indigo-800 py-2 px-3 rounded-full text-white md:text-sm mr-2 w-full md:w-auto">
         Edit Lead
       </nuxt-link>
-      <div class="relative">
+      <div class="relative h-full">
         <select
           id="status"
           v-model="status"
-          class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 border-2 border-gray-300 md:text-sm py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
+          class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 md:text-sm py-2 px-3 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
           @change="handleStatusChange"
         >
           <option value="">

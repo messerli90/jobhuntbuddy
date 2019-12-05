@@ -32,6 +32,9 @@ export const mutations = {
     const i = state.leads.indexOf(lead)
     state.leads.splice(i, 1)
   },
+  setAttribute (state, obj) {
+    state.lead[obj.attr] = obj.val
+  },
 
   filterLeads (state) {
     const leads = [...state.leads]
@@ -63,7 +66,7 @@ export const actions = {
     await commit('addLead', newLead)
   },
   async updateLead ({ commit, rootState }, lead) {
-    commit('setLead', lead)
+    // commit('setLead', lead)
     const userId = await rootState.users.uid
     const updatedLead = await FireStore.update(userId, lead)
     commit('setLead', updatedLead)
@@ -84,6 +87,9 @@ export const actions = {
         // Throw 404
       }
     }
+  },
+  setAttribute ({ commit }, attrObj) {
+    commit('setAttribute', attrObj)
   },
   async filterOrder ({ commit }, order) {
     await commit('setOrder', order)
