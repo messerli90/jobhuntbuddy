@@ -21,42 +21,61 @@ async function list (userId) {
   return leads
 }
 
-async function create (lead, userId) {
-  const ref = fireDb.collection(`users/${userId}/leads`).doc()
-
-  let res
+async function show (userId, leadId) {
+  const ref = fireDb.doc(`users/${userId}/leads/${leadId}`)
+  let lead
   try {
-    delete lead.id
+    const snap = await ref.get()
+    lead = {
+      id: snap.id,
+      ...snap.data
+    }
+  } catch (e) {}
+  return lead
+}
+
+async function create (userId, lead) {
+  const ref = fireDb.collection(`users/${userId}/leads`).doc()
+  let doc
+  try {
     const newLead = {
       ...lead,
       createdAt: new Date()
     }
-    res = await ref.set(newLead)
+    await ref.set(newLead)
+    doc = await ref.get()
   } catch (e) {
-    // Handle Error
+    throw new Error(e.code)
   }
-  return res
+  return {
+    id: doc.id,
+    ...doc.data
+  }
 }
 
-async function update (lead, userId) {
+async function update (userId, lead) {
   const ref = fireDb.collection(`users/${userId}/leads`).doc(lead.id)
 
-  let res
+  let doc
   try {
-    res = await ref.set(lead)
+    await ref.set(lead)
+    doc = await ref.get()
   } catch (e) {
-    // Handle Error
+    throw new Error(e.code)
   }
-  return res
+  return {
+    id: doc.id,
+    ...doc.data
+  }
 }
 
-async function remove (lead, userId) {
+async function remove (userId, lead) {
   const ref = fireDb.collection(`users/${userId}/leads`).doc(lead.id)
 
   try {
     await ref.delete()
   } catch (e) {
-    // Handle Error
+    throw new Error(e.code)
   }
 }
 
@@ -64,5 +83,6 @@ export {
   list,
   create,
   update,
-  remove
+  remove,
+  show
 }

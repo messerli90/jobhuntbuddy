@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { STATUSES } from '~/store/leads'
+import { STATUSES } from '~/helpers/leads'
 export default {
   props: {
     status: {

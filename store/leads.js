@@ -1,139 +1,99 @@
-import merge from 'lodash.merge'
 import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
-  list: [],
+  leads: [],
+  filteredLeads: [],
   lead: {}
 })
 
+export const getters = {
+  getLeads (state) { return state.leads },
+  getFilteredLeads (state) { return state.filteredLeads },
+  getLead (state) { return state.lead }
+}
+
 export const mutations = {
-  set (state, leads) {
-    state.list = leads
-  },
-  add (state, lead) {
-    merge(state.list, lead)
-  },
-  remove (state, lead) {
-    const i = state.list.indexOf(lead)
-    state.list.splice(i, 1)
-  },
-  clear (state) {
-    state.list = []
-    state.lead = {}
-  },
-  setLead (state, lead) {
-    state.lead = lead
-  },
-  setAttribute (state, obj) {
-    state.lead[obj.attr] = obj.val
-  },
-  update (state, lead) {
-    // merge(state.list, lead)
-    state.lead = lead
-    state.list = [
-      ...state.list.map(item => item.id !== lead.id
+  setLeads (state, leads) { state.leads = leads },
+  setFilteredLeads (state, leads) { state.filteredLeads = leads },
+  setLead (state, lead) { state.lead = lead },
+
+  addLead (state, lead) { state.leads.push(lead) },
+  updateLead (state, lead) {
+    state.leads = [
+      ...state.leads.map(item => item.id !== lead.id
         ? item : {
           ...item,
           ...lead
         }
       )
     ]
-  }
-}
-
-export const getters = {
-  all (state) {
-    return state.list
   },
-  show (state) {
-    return state.lead
+  removeLead (state, lead) {
+    const i = state.leads.indexOf(lead)
+    state.leads.splice(i, 1)
   },
-  prospects (state) {
-    return state.list.filter(lead => lead.status === 'prospect')
+  clearLeads (state) { state.leads = [] },
+  filterStatus (state, status) {
+    if (status === 'all') {
+      state.filteredLeads = [...state.leads]
+    } else {
+      const filtered = state.leads.filter(lead => lead.status === status)
+      state.filteredLeads = filtered
+    }
   },
-  appSent (state) {
-    return state.list.filter(lead => lead.status === 'application-sent')
-  },
-  interviewSet (state) {
-    return state.list.filter(lead => lead.status === 'interview-set')
-  },
-  rejected (state) {
-    return state.list.filter(lead => lead.status === 'rejected')
+  filterSearch (state, search) {
+    let list = []
+    if (search === '') {
+      list = [...state.leads]
+    } else {
+      state.leads.map((lead) => {
+        if (
+          (lead.companyName && lead.companyName.toLowerCase().includes(search)) ||
+          (lead.jobTitle && lead.jobTitle.toLowerCase().includes(search))
+        ) {
+          list.push(lead)
+        }
+      })
+    }
+    state.filteredLeads = list
   }
 }
 
 export const actions = {
-  async getAll ({ commit, rootState }) {
+  async fetchAllLeads ({ commit, rootState }) {
     const userId = await rootState.users.uid
     const leads = await FireStore.list(userId)
-    commit('set', leads)
+    await commit('setLeads', leads)
+    await commit('setFilteredLeads', leads)
   },
-  async create ({ dispatch, rootState }, lead) {
+  async fetchSingleLead ({ commit, rootState }, leadId) {
     const userId = await rootState.users.uid
-    await FireStore.create(lead, userId)
-    dispatch('getAll')
+    const lead = await FireStore.show(userId, leadId)
+    await commit('setLead', lead)
   },
-  async update ({ commit, rootState }, lead) {
+  async createLead ({ commit, rootState }, lead) {
     const userId = await rootState.users.uid
-    await FireStore.update(lead, userId)
-    commit('update', lead)
+    const newLead = await FireStore.create(userId, lead)
+    await commit('addLead', newLead)
   },
-  async remove ({ commit, rootState }, lead) {
+  async updateLead ({ commit, rootState }, lead) {
     const userId = await rootState.users.uid
-    await FireStore.remove(lead, userId)
-    commit('remove', lead)
+    const updatedLead = await FireStore.update(userId, lead)
+    await commit('updateLead', updatedLead)
   },
-  setAttribute ({ commit }, attrObj) {
-    commit('setAttribute', attrObj)
+  async removeLead ({ commit, rootState }, lead) {
+    const userId = await rootState.users.uid
+    await FireStore.remove(userId, lead)
+    await commit('removeLead', lead)
   },
-  setLead ({ commit, state }, leadId) {
-    const lead = state.list.find(l => l.id === leadId)
-    commit('setLead', lead)
+  async filterStatus ({ commit }, status) {
+    await commit('filterStatus', status)
   },
-  clear ({ commit }) {
-    commit('clear')
+  async filterSearch ({ commit }, search) {
+    await commit('filterSearch', search)
+  },
+  async filteredLeads () {},
+  async clearLeads ({ commit }) {
+    await commit('clearLeads')
   }
 }
-
-export const EMPTY_LEAD = {
-  id: null,
-  companyName: null,
-  jobTitle: null,
-  status: 'prospect',
-  companyWebsite: null,
-  listingUrl: null,
-  contactName: null,
-  contactEmail: null,
-  sentDate: null,
-  compensation: null,
-  location: null,
-  createdAt: new Date(),
-  notes: null
-}
-
-export const STATUSES = [
-  {
-    key: 'prospect',
-    text: 'Just a Prospect',
-    classes: 'bg-yellow-200 text-yellow-800 border-yellow-500',
-    baseColor: 'yellow'
-  },
-  {
-    key: 'application-sent',
-    text: 'Application Sent',
-    classes: 'bg-green-200 text-green-800 border-green-500',
-    baseColor: 'green'
-  },
-  {
-    key: 'interview-set',
-    text: 'Interview Set',
-    classes: 'bg-blue-200 text-blue-800 border-blue-500',
-    baseColor: 'blue'
-  },
-  {
-    key: 'rejected',
-    text: 'Rejected',
-    classes: 'bg-red-200 text-red-800 border-red-500',
-    baseColor: 'red'
-  }
-]

@@ -137,7 +137,7 @@
 <script>
 import marked from 'marked'
 import StatusTag from '~/components/statusTag'
-import { STATUSES } from '~/store/leads'
+import { STATUSES } from '~/helpers/leads'
 export default {
   components: { StatusTag },
   data () {
