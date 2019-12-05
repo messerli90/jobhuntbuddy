@@ -28,9 +28,11 @@ async function show (userId, leadId) {
     const snap = await ref.get()
     lead = {
       id: snap.id,
-      ...snap.data
+      ...snap.data()
     }
-  } catch (e) {}
+  } catch (e) {
+    throw new Error(e.code)
+  }
   return lead
 }
 
@@ -65,7 +67,7 @@ async function update (userId, lead) {
   }
   return {
     id: doc.id,
-    ...doc.data
+    ...doc.data()
   }
 }
 

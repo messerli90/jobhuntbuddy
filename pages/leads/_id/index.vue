@@ -5,6 +5,9 @@
         &lt; Back to Leads
       </nuxt-link>
     </div>
+    <p v-if="loading">
+      Loading...
+    </p>
     <div class="rounded shadow bg-white p-4 md:p-8">
       <h1 class="text-2xl uppercase text-center text-gray-900 font-thin">
         {{ lead.companyName }}
@@ -146,8 +149,11 @@ export default {
     }
   },
   computed: {
+    loading () {
+      return !this.lead.companyName
+    },
     lead () {
-      return this.$store.getters['leads/show']
+      return this.$store.getters['leads/getLead']
     },
     compiledMarkdown () {
       return marked(String(this.lead.notes))
@@ -158,13 +164,13 @@ export default {
   },
   mounted () {
     const leadId = this.$route.params.id
-    this.$store.dispatch('leads/setLead', leadId)
+    this.$store.dispatch('leads/setLeadById', leadId)
   },
   methods: {
     async removeCurrent () {
       const confirmRemove = confirm('Are you sure you want to remove this lead?')
       if (confirmRemove) {
-        await this.$store.dispatch('leads/remove', this.lead)
+        await this.$store.dispatch('leads/removeLead', this.lead)
         this.$router.push({ path: '/leads' })
       }
     },
@@ -174,7 +180,7 @@ export default {
       }
       if (this.status !== '') {
         lead.status = this.status
-        this.$store.dispatch('leads/update', lead)
+        this.$store.dispatch('leads/updateLead', lead)
       }
     }
   }

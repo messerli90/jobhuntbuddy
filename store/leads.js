@@ -65,14 +65,27 @@ export const actions = {
     await commit('addLead', newLead)
   },
   async updateLead ({ commit, rootState }, lead) {
+    commit('setLead', lead)
     const userId = await rootState.users.uid
     const updatedLead = await FireStore.update(userId, lead)
-    await commit('updateLead', updatedLead)
+    commit('setLead', updatedLead)
   },
   async removeLead ({ commit, rootState }, lead) {
     const userId = await rootState.users.uid
     await FireStore.remove(userId, lead)
     await commit('removeLead', lead)
+  },
+  async setLeadById ({ commit, state, dispatch }, leadId) {
+    if (!state.leads.length) {
+      await dispatch('fetchSingleLead', leadId)
+    } else {
+      const lead = state.leads.find(l => l.id === leadId)
+      if (lead) {
+        commit('setLead', lead)
+      } else {
+        // Throw 404
+      }
+    }
   },
   async filterStatus ({ commit, dispatch }, status) {
     await commit('setFilterStatus', status)

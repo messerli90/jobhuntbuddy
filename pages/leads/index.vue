@@ -31,6 +31,11 @@ export default {
   },
   async fetch ({ store }) {
     await store.dispatch('leads/fetchAllLeads')
+  },
+  mounted () {
+    if (!this.leads.length) {
+      this.$store.dispatch('leads/fetchAllLeads')
+    }
   }
 }
 </script>
