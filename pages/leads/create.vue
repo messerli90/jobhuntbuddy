@@ -213,7 +213,7 @@
 
 <script>
 import { required, minLength, url } from 'vuelidate/lib/validators'
-import { STATUSES, EMPTY_LEAD } from '~/store/leads'
+import { STATUSES, EMPTY_LEAD } from '~/helpers/leads'
 export default {
   data () {
     return {
@@ -265,7 +265,7 @@ export default {
         this.submitStatus = 'ERROR'
         this.saving = false
       } else {
-        await this.$store.dispatch('leads/create', this.form)
+        await this.$store.dispatch('leads/createLead', this.form)
         this.$router.push({ path: '/leads' })
       }
     }

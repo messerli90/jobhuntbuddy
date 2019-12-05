@@ -44,7 +44,8 @@ export default {
     './plugins/mixins/user',
     './plugins/Uuid',
     './plugins/Vuelidate',
-    './plugins/firebase'
+    './plugins/firebase',
+    '~/plugins/directives'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -70,7 +71,7 @@ export default {
         // you must have it in your node_modules to actually import
         {
           set: '@fortawesome/free-solid-svg-icons',
-          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight', 'faChevronDown']
+          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight', 'faChevronDown', 'faSortAmountDown']
         }
       ]
     }]

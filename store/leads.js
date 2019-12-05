@@ -1,139 +1,107 @@
-import merge from 'lodash.merge'
+import * as Filters from '~/helpers/filters'
 import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
-  list: [],
-  lead: {}
+  leads: [],
+  filteredLeads: [],
+  lead: {},
+  filter: {
+    search: '',
+    status: 'all',
+    order: 'createdAt'
+  }
 })
 
-export const mutations = {
-  set (state, leads) {
-    state.list = leads
-  },
-  add (state, lead) {
-    merge(state.list, lead)
-  },
-  remove (state, lead) {
-    const i = state.list.indexOf(lead)
-    state.list.splice(i, 1)
-  },
-  clear (state) {
-    state.list = []
-    state.lead = {}
-  },
-  setLead (state, lead) {
-    state.lead = lead
-  },
-  setAttribute (state, obj) {
-    state.lead[obj.attr] = obj.val
-  },
-  update (state, lead) {
-    // merge(state.list, lead)
-    state.lead = lead
-    state.list = [
-      ...state.list.map(item => item.id !== lead.id
-        ? item : {
-          ...item,
-          ...lead
-        }
-      )
-    ]
-  }
+export const getters = {
+  getLeads (state) { return state.leads },
+  getFilteredLeads (state) { return state.filteredLeads },
+  getLead (state) { return state.lead }
 }
 
-export const getters = {
-  all (state) {
-    return state.list
+export const mutations = {
+  setLeads (state, leads) { state.leads = leads },
+  setFilteredLeads (state, leads) { state.filteredLeads = leads },
+  setLead (state, lead) { state.lead = lead },
+  setFilter (state, filter) { state.filter = filter },
+  setFilterStatus (state, status) { state.filter.status = status },
+  setFilterSearch (state, search) { state.filter.search = search },
+  clearLeads (state) { state.leads = [] },
+  addLead (state, lead) { state.leads.push(lead) },
+
+  removeLead (state, lead) {
+    const i = state.leads.indexOf(lead)
+    state.leads.splice(i, 1)
   },
-  show (state) {
-    return state.lead
+
+  filterLeads (state) {
+    const leads = [...state.leads]
+    state.filteredLeads = leads
+    state.filteredLeads = Filters.filterLeads(state.filter, leads)
   },
-  prospects (state) {
-    return state.list.filter(lead => lead.status === 'prospect')
-  },
-  appSent (state) {
-    return state.list.filter(lead => lead.status === 'application-sent')
-  },
-  interviewSet (state) {
-    return state.list.filter(lead => lead.status === 'interview-set')
-  },
-  rejected (state) {
-    return state.list.filter(lead => lead.status === 'rejected')
+  setOrder (state, order) { state.filter.order = order },
+  orderLeads (state) {
+    const leads = [...state.filteredLeads]
+    state.filteredLeads = Filters.orderLeads(state.filter.order, leads)
   }
 }
 
 export const actions = {
-  async getAll ({ commit, rootState }) {
+  async fetchAllLeads ({ commit, rootState }) {
     const userId = await rootState.users.uid
     const leads = await FireStore.list(userId)
-    commit('set', leads)
+    await commit('setLeads', leads)
+    await commit('setFilteredLeads', leads)
   },
-  async create ({ dispatch, rootState }, lead) {
+  async fetchSingleLead ({ commit, rootState }, leadId) {
     const userId = await rootState.users.uid
-    await FireStore.create(lead, userId)
-    dispatch('getAll')
+    const lead = await FireStore.show(userId, leadId)
+    await commit('setLead', lead)
   },
-  async update ({ commit, rootState }, lead) {
+  async createLead ({ commit, rootState }, lead) {
     const userId = await rootState.users.uid
-    await FireStore.update(lead, userId)
-    commit('update', lead)
+    const newLead = await FireStore.create(userId, lead)
+    await commit('addLead', newLead)
   },
-  async remove ({ commit, rootState }, lead) {
-    const userId = await rootState.users.uid
-    await FireStore.remove(lead, userId)
-    commit('remove', lead)
-  },
-  setAttribute ({ commit }, attrObj) {
-    commit('setAttribute', attrObj)
-  },
-  setLead ({ commit, state }, leadId) {
-    const lead = state.list.find(l => l.id === leadId)
+  async updateLead ({ commit, rootState }, lead) {
     commit('setLead', lead)
+    const userId = await rootState.users.uid
+    const updatedLead = await FireStore.update(userId, lead)
+    commit('setLead', updatedLead)
   },
-  clear ({ commit }) {
-    commit('clear')
+  async removeLead ({ commit, rootState }, lead) {
+    const userId = await rootState.users.uid
+    await FireStore.remove(userId, lead)
+    await commit('removeLead', lead)
+  },
+  async setLeadById ({ commit, state, dispatch }, leadId) {
+    if (!state.leads.length) {
+      await dispatch('fetchSingleLead', leadId)
+    } else {
+      const lead = state.leads.find(l => l.id === leadId)
+      if (lead) {
+        commit('setLead', lead)
+      } else {
+        // Throw 404
+      }
+    }
+  },
+  async filterOrder ({ commit }, order) {
+    await commit('setOrder', order)
+    await commit('orderLeads')
+  },
+  async filterStatus ({ commit, dispatch }, status) {
+    await commit('setFilterStatus', status)
+    dispatch('filterLeads')
+  },
+  async filterSearch ({ commit, dispatch }, search) {
+    await commit('setFilterSearch', search)
+    dispatch('filterLeads')
+  },
+  async filterLeads ({ commit }) {
+    await commit('filterLeads')
+    await commit('orderLeads')
+  },
+  async clearLeads ({ commit }) {
+    await commit('clearLeads')
   }
 }
-
-export const EMPTY_LEAD = {
-  id: null,
-  companyName: null,
-  jobTitle: null,
-  status: 'prospect',
-  companyWebsite: null,
-  listingUrl: null,
-  contactName: null,
-  contactEmail: null,
-  sentDate: null,
-  compensation: null,
-  location: null,
-  createdAt: new Date(),
-  notes: null
-}
-
-export const STATUSES = [
-  {
-    key: 'prospect',
-    text: 'Just a Prospect',
-    classes: 'bg-yellow-200 text-yellow-800 border-yellow-500',
-    baseColor: 'yellow'
-  },
-  {
-    key: 'application-sent',
-    text: 'Application Sent',
-    classes: 'bg-green-200 text-green-800 border-green-500',
-    baseColor: 'green'
-  },
-  {
-    key: 'interview-set',
-    text: 'Interview Set',
-    classes: 'bg-blue-200 text-blue-800 border-blue-500',
-    baseColor: 'blue'
-  },
-  {
-    key: 'rejected',
-    text: 'Rejected',
-    classes: 'bg-red-200 text-red-800 border-red-500',
-    baseColor: 'red'
-  }
-]

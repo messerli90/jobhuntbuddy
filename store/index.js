@@ -9,8 +9,7 @@ export const actions = {
         email: user.email,
         uid: user.user_id
       })
-      // TODO only fetch leads associated to user
-      await dispatch('leads/getAll')
+      await dispatch('leads/fetchAllLeads')
     }
   }
 }

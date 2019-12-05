@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { STATUSES } from '~/store/leads'
+import { STATUSES } from '~/helpers/leads'
 import StatusTag from '~/components/statusTag'
 export default {
   components: { StatusTag },
