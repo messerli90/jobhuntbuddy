@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="w-full mb-2">
-      <input :value="search" type="search" class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded-full" placeholder="Search leads..." @input="handleSearch">
+      <input
+        :value="search"
+        type="search"
+        class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded-full"
+        placeholder="Search company name or job title"
+        aria-label="Search by company name or job title"
+        @input="handleSearch"
+      >
     </div>
     <div class="mb-4 w-full">
       <div class="flex flex-wrap items-center justify-center md:justify-between w-full text-gray-800">
@@ -22,22 +29,25 @@
         </button>
       </div>
     </div>
-    <div class="flex justify-end">
-      <div class="relative mb-3 pr-4 pl-8">
+    <div class="flex justify-start">
+      <div class="relative mb-3 pr-8">
         <p v-click-outside="closeOrderDropDown" class="text-gray-700 cursor-pointer" @click="orderOpen = !orderOpen">
           <fa :icon="['fas', 'sort-amount-down']" class="h-4 mx-1" />
           Order By
           <span v-show="orderChanged" class="font-semibold">{{ orderText }}</span>
         </p>
         <ul v-show="orderOpen" class="bg-white absolute z-20 px-3 py-2 mt-1 rounded shadow-lg text-gray-700 min-w-full">
-          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'createdAt' }" @click="handleFilterOrder('createdAt')">
+          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600 font-semibold' : order === 'createdAt' }" @click="handleFilterOrder('createdAt')">
             Created Date
           </li>
-          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'companyName' }" @click="handleFilterOrder('companyName')">
+          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600 font-semibold' : order === 'companyName' }" @click="handleFilterOrder('companyName')">
             Company Name
           </li>
-          <li class="cursor-pointer hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'jobTitle' }" @click="handleFilterOrder('jobTitle')">
+          <li class="cursor-pointer hover:text-indigo-600" :class="{ 'text-indigo-600 font-semibold' : order === 'jobTitle' }" @click="handleFilterOrder('jobTitle')">
             Job Title
+          </li>
+          <li class="cursor-pointer hover:text-indigo-600" :class="{ 'text-indigo-600 font-semibold' : order === 'status' }" @click="handleFilterOrder('status')">
+            Status
           </li>
         </ul>
       </div>
@@ -70,6 +80,8 @@ export default {
           return 'Company Name'
         case 'jobTitle':
           return 'Job Title'
+        case 'status':
+          return 'Status'
         default:
           return 'Created Date'
       }

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import * as Filters from '~/helpers/filters'
 import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
@@ -25,32 +25,23 @@ export const mutations = {
   setFilter (state, filter) { state.filter = filter },
   setFilterStatus (state, status) { state.filter.status = status },
   setFilterSearch (state, search) { state.filter.search = search },
-
+  clearLeads (state) { state.leads = [] },
   addLead (state, lead) { state.leads.push(lead) },
-  updateLead (state, lead) {
-    state.leads = [
-      ...state.leads.map(item => item.id !== lead.id
-        ? item : {
-          ...item,
-          ...lead
-        }
-      )
-    ]
-  },
+
   removeLead (state, lead) {
     const i = state.leads.indexOf(lead)
     state.leads.splice(i, 1)
   },
-  clearLeads (state) { state.leads = [] },
+
   filterLeads (state) {
     const leads = [...state.leads]
     state.filteredLeads = leads
-    state.filteredLeads = _filterLeads(state.filter, leads)
+    state.filteredLeads = Filters.filterLeads(state.filter, leads)
   },
   setOrder (state, order) { state.filter.order = order },
   orderLeads (state) {
     const leads = [...state.filteredLeads]
-    state.filteredLeads = _orderLeads(state.filter.order, leads)
+    state.filteredLeads = Filters.orderLeads(state.filter.order, leads)
   }
 }
 
@@ -113,56 +104,4 @@ export const actions = {
   async clearLeads ({ commit }) {
     await commit('clearLeads')
   }
-}
-
-function _filterLeads (filter, leads) {
-  let filteredList = [...leads]
-
-  // Filter status
-  if (filter.status !== 'all') {
-    const filtered = filteredList.filter(lead => lead.status === filter.status)
-    filteredList = filtered
-  }
-
-  // Search
-  if (filter.search !== '') {
-    const searchList = []
-    for (let i = 0; i < filteredList.length; i++) {
-      if (
-        (filteredList[i].companyName !== null && filteredList[i].companyName.toLowerCase().includes(filter.search)) ||
-        (filteredList[i].jobTitle !== null && filteredList[i].jobTitle.toLowerCase().includes(filter.search))
-      ) {
-        searchList.push(filteredList[i])
-      }
-    }
-    filteredList = searchList
-  }
-
-  return filteredList
-}
-
-function _orderLeads (order, leads) {
-  const orderedList = [...leads]
-
-  if (order === 'createdAt') {
-    orderedList.sort(function (a, b) {
-      const unixA = moment(a.createdAt)
-      const unixB = moment(b.createdAt)
-      return unixA < unixB ? -1 : 1
-    })
-  } else if (order === 'companyName') {
-    orderedList.sort(function (a, b) {
-      const nameA = a.companyName.toLowerCase()
-      const nameB = b.companyName.toLowerCase()
-      return nameA < nameB ? -1 : 1
-    })
-  } else if (order === 'jobTitle') {
-    orderedList.sort(function (a, b) {
-      const nameA = a.jobTitle ? a.jobTitle.toLowerCase() : 'zzz'
-      const nameB = b.jobTitle ? b.jobTitle.toLowerCase() : 'zzz'
-      return nameA < nameB ? -1 : 1
-    })
-  }
-
-  return orderedList
 }
