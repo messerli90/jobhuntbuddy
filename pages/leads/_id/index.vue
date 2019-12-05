@@ -5,9 +5,6 @@
         &lt; Back to Leads
       </nuxt-link>
     </div>
-    <p v-if="loading">
-      Loading...
-    </p>
     <div class="rounded shadow bg-white p-4 md:p-8">
       <h1 class="text-2xl uppercase text-center text-gray-900 font-thin">
         {{ lead.companyName }}
@@ -17,12 +14,6 @@
       </h2>
       <div class="text-center my-4">
         <StatusTag :status="lead.status" size="xs" />
-        <!-- <span class="inline-block rounded-full py-1 px-4" :class="statusClass">
-          {{ lead.status }}
-        </span>
-        <p class="uppercase font-semibold text-xs">
-          Application Status
-        </p> -->
       </div>
       <hr class="m-6 w-2/3 mx-auto">
       <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">

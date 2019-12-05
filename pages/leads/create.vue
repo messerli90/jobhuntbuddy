@@ -265,7 +265,7 @@ export default {
         this.submitStatus = 'ERROR'
         this.saving = false
       } else {
-        await this.$store.dispatch('leads/create', this.form)
+        await this.$store.dispatch('leads/createLead', this.form)
         this.$router.push({ path: '/leads' })
       }
     }

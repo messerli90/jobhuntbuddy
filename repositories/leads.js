@@ -5,7 +5,7 @@ async function list (userId) {
 
   const leads = []
   try {
-    const snap = await ref.get()
+    const snap = await ref.orderBy('createdAt').get()
     if (snap.empty) {
       return []
     }
