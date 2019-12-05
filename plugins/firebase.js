@@ -9,10 +9,12 @@ const firebaseConfig = {
   projectId: 'job-hunt-buddy',
   storageBucket: 'job-hunt-buddy.appspot.com',
   messagingSenderId: '455609997246',
-  appId: '1:455609997246:web:dbc193c4ab01efea670bef'
+  appId: '1:455609997246:web:dbc193c4ab01efea670bef',
+  measurementId: 'G-9BMMH237TW'
 }
 
 export default !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
+firebase.analytics()
 
 const fireDb = firebase.firestore()
 const twitterAuth = new firebase.auth.TwitterAuthProvider()

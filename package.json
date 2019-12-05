@@ -21,7 +21,6 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/google-analytics": "^2.2.2",
     "@nuxtjs/moment": "^1.4.0",
     "cookieparser": "^0.1.0",
     "firebase": "^7.3.0",
