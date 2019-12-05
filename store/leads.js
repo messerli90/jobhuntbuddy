@@ -1,3 +1,4 @@
+import moment from 'moment'
 import * as FireStore from '~/repositories/leads'
 
 export const state = () => ({
@@ -6,7 +7,8 @@ export const state = () => ({
   lead: {},
   filter: {
     search: '',
-    status: 'all'
+    status: 'all',
+    order: 'createdAt'
   }
 })
 
@@ -44,6 +46,11 @@ export const mutations = {
     const leads = [...state.leads]
     state.filteredLeads = leads
     state.filteredLeads = _filterLeads(state.filter, leads)
+  },
+  setOrder (state, order) { state.filter.order = order },
+  orderLeads (state) {
+    const leads = [...state.filteredLeads]
+    state.filteredLeads = _orderLeads(state.filter.order, leads)
   }
 }
 
@@ -87,6 +94,10 @@ export const actions = {
       }
     }
   },
+  async filterOrder ({ commit }, order) {
+    await commit('setOrder', order)
+    await commit('orderLeads')
+  },
   async filterStatus ({ commit, dispatch }, status) {
     await commit('setFilterStatus', status)
     dispatch('filterLeads')
@@ -97,6 +108,7 @@ export const actions = {
   },
   async filterLeads ({ commit }) {
     await commit('filterLeads')
+    await commit('orderLeads')
   },
   async clearLeads ({ commit }) {
     await commit('clearLeads')
@@ -127,4 +139,30 @@ function _filterLeads (filter, leads) {
   }
 
   return filteredList
+}
+
+function _orderLeads (order, leads) {
+  const orderedList = [...leads]
+
+  if (order === 'createdAt') {
+    orderedList.sort(function (a, b) {
+      const unixA = moment(a.createdAt)
+      const unixB = moment(b.createdAt)
+      return unixA < unixB ? -1 : 1
+    })
+  } else if (order === 'companyName') {
+    orderedList.sort(function (a, b) {
+      const nameA = a.companyName.toLowerCase()
+      const nameB = b.companyName.toLowerCase()
+      return nameA < nameB ? -1 : 1
+    })
+  } else if (order === 'jobTitle') {
+    orderedList.sort(function (a, b) {
+      const nameA = a.jobTitle ? a.jobTitle.toLowerCase() : 'zzz'
+      const nameB = b.jobTitle ? b.jobTitle.toLowerCase() : 'zzz'
+      return nameA < nameB ? -1 : 1
+    })
+  }
+
+  return orderedList
 }

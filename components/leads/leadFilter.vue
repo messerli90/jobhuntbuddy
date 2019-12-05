@@ -22,6 +22,26 @@
         </button>
       </div>
     </div>
+    <div class="flex justify-end">
+      <div class="relative mb-3 pr-4 pl-8">
+        <p class="text-gray-700 cursor-pointer" @click="orderOpen = !orderOpen">
+          <fa :icon="['fas', 'sort-amount-down']" class="h-4 mx-1" />
+          Order By
+          <span v-show="orderChanged" class="font-semibold">{{ orderText }}</span>
+        </p>
+        <ul v-show="orderOpen" class="bg-white absolute z-20 px-3 py-2 mt-1 rounded shadow-lg text-gray-700 min-w-full">
+          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'createdAt' }" @click="handleFilterOrder('createdAt')">
+            Created Date
+          </li>
+          <li class="cursor-pointer pb-1 hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'companyName' }" @click="handleFilterOrder('companyName')">
+            Company Name
+          </li>
+          <li class="cursor-pointer hover:text-indigo-600" :class="{ 'text-indigo-600' : order === 'jobTitle' }" @click="handleFilterOrder('jobTitle')">
+            Job Title
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,7 +50,8 @@ import { debounce } from '~/helpers/index'
 export default {
   data () {
     return {
-      // status: 'all'
+      orderOpen: false,
+      orderChanged: false
     }
   },
   computed: {
@@ -39,6 +60,19 @@ export default {
     },
     status () {
       return this.$store.state.leads.filter.status
+    },
+    order () {
+      return this.$store.state.leads.filter.order
+    },
+    orderText () {
+      switch (this.order) {
+        case 'companyName':
+          return 'Company Name'
+        case 'jobTitle':
+          return 'Job Title'
+        default:
+          return 'Created Date'
+      }
     }
   },
   methods: {
@@ -47,7 +81,12 @@ export default {
     },
     handleSearch: debounce(function (e) {
       this.$store.dispatch('leads/filterSearch', e.target.value)
-    }, 500)
+    }, 500),
+    handleFilterOrder (orderBy) {
+      this.orderOpen = false
+      this.orderChanged = true
+      this.$store.dispatch('leads/filterOrder', orderBy)
+    }
   }
 }
 </script>
