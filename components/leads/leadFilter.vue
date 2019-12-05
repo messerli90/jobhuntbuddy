@@ -24,7 +24,7 @@
     </div>
     <div class="flex justify-end">
       <div class="relative mb-3 pr-4 pl-8">
-        <p class="text-gray-700 cursor-pointer" @click="orderOpen = !orderOpen">
+        <p v-click-outside="closeOrderDropDown" class="text-gray-700 cursor-pointer" @click="orderOpen = !orderOpen">
           <fa :icon="['fas', 'sort-amount-down']" class="h-4 mx-1" />
           Order By
           <span v-show="orderChanged" class="font-semibold">{{ orderText }}</span>
@@ -86,6 +86,9 @@ export default {
       this.orderOpen = false
       this.orderChanged = true
       this.$store.dispatch('leads/filterOrder', orderBy)
+    },
+    closeOrderDropDown (e) {
+      this.orderOpen = false
     }
   }
 }

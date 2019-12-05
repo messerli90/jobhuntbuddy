@@ -44,7 +44,8 @@ export default {
     './plugins/mixins/user',
     './plugins/Uuid',
     './plugins/Vuelidate',
-    './plugins/firebase'
+    './plugins/firebase',
+    '~/plugins/directives'
   ],
   /*
   ** Nuxt.js dev-modules
