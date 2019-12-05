@@ -20,6 +20,9 @@ export const mutations = {
   setLeads (state, leads) { state.leads = leads },
   setFilteredLeads (state, leads) { state.filteredLeads = leads },
   setLead (state, lead) { state.lead = lead },
+  setFilter (state, filter) { state.filter = filter },
+  setFilterStatus (state, status) { state.filter.status = status },
+  setFilterSearch (state, search) { state.filter.search = search },
 
   addLead (state, lead) { state.leads.push(lead) },
   updateLead (state, lead) {
@@ -37,11 +40,10 @@ export const mutations = {
     state.leads.splice(i, 1)
   },
   clearLeads (state) { state.leads = [] },
-  filterLeads (state, filter) {
+  filterLeads (state) {
     const leads = [...state.leads]
-    state.filter = filter
     state.filteredLeads = leads
-    state.filteredLeads = _filterLeads(filter, leads)
+    state.filteredLeads = _filterLeads(state.filter, leads)
   }
 }
 
@@ -72,8 +74,16 @@ export const actions = {
     await FireStore.remove(userId, lead)
     await commit('removeLead', lead)
   },
-  async filterLeads ({ commit }, filter) {
-    await commit('filterLeads', filter)
+  async filterStatus ({ commit, dispatch }, status) {
+    await commit('setFilterStatus', status)
+    dispatch('filterLeads')
+  },
+  async filterSearch ({ commit, dispatch }, search) {
+    await commit('setFilterSearch', search)
+    dispatch('filterLeads')
+  },
+  async filterLeads ({ commit }) {
+    await commit('filterLeads')
   },
   async clearLeads ({ commit }) {
     await commit('clearLeads')
@@ -84,9 +94,7 @@ function _filterLeads (filter, leads) {
   let filteredList = [...leads]
 
   // Filter status
-  if (filter.status === 'all') {
-    filteredList = leads
-  } else {
+  if (filter.status !== 'all') {
     const filtered = filteredList.filter(lead => lead.status === filter.status)
     filteredList = filtered
   }
