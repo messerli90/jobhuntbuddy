@@ -3,7 +3,11 @@ import * as FireStore from '~/repositories/leads'
 export const state = () => ({
   leads: [],
   filteredLeads: [],
-  lead: {}
+  lead: {},
+  filter: {
+    search: '',
+    status: 'all'
+  }
 })
 
 export const getters = {
@@ -33,29 +37,11 @@ export const mutations = {
     state.leads.splice(i, 1)
   },
   clearLeads (state) { state.leads = [] },
-  filterStatus (state, status) {
-    if (status === 'all') {
-      state.filteredLeads = [...state.leads]
-    } else {
-      const filtered = state.leads.filter(lead => lead.status === status)
-      state.filteredLeads = filtered
-    }
-  },
-  filterSearch (state, search) {
-    let list = []
-    if (search === '') {
-      list = [...state.leads]
-    } else {
-      state.leads.map((lead) => {
-        if (
-          (lead.companyName && lead.companyName.toLowerCase().includes(search)) ||
-          (lead.jobTitle && lead.jobTitle.toLowerCase().includes(search))
-        ) {
-          list.push(lead)
-        }
-      })
-    }
-    state.filteredLeads = list
+  filterLeads (state, filter) {
+    const leads = [...state.leads]
+    state.filter = filter
+    state.filteredLeads = leads
+    state.filteredLeads = _filterLeads(filter, leads)
   }
 }
 
@@ -86,14 +72,38 @@ export const actions = {
     await FireStore.remove(userId, lead)
     await commit('removeLead', lead)
   },
-  async filterStatus ({ commit }, status) {
-    await commit('filterStatus', status)
+  async filterLeads ({ commit }, filter) {
+    await commit('filterLeads', filter)
   },
-  async filterSearch ({ commit }, search) {
-    await commit('filterSearch', search)
-  },
-  async filteredLeads () {},
   async clearLeads ({ commit }) {
     await commit('clearLeads')
   }
+}
+
+function _filterLeads (filter, leads) {
+  let filteredList = [...leads]
+
+  // Filter status
+  if (filter.status === 'all') {
+    filteredList = leads
+  } else {
+    const filtered = filteredList.filter(lead => lead.status === filter.status)
+    filteredList = filtered
+  }
+
+  // Search
+  if (filter.search !== '') {
+    const searchList = []
+    for (let i = 0; i < filteredList.length; i++) {
+      if (
+        (filteredList[i].companyName !== null && filteredList[i].companyName.toLowerCase().includes(filter.search)) ||
+        (filteredList[i].jobTitle !== null && filteredList[i].jobTitle.toLowerCase().includes(filter.search))
+      ) {
+        searchList.push(filteredList[i])
+      }
+    }
+    filteredList = searchList
+  }
+
+  return filteredList
 }

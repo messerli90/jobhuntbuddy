@@ -1,6 +1,6 @@
 <template>
   <div id="lead-index-wrapper" class="container pt-4 px-2 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
-    <client-only>
+    <div>
       <div v-if="leads.length">
         <LeadFilter />
         <nuxt-link v-for="lead in filteredLeads" :key="lead.id" :to="'/leads/' + lead.id">
@@ -9,7 +9,7 @@
         <NoLeadsCard v-if="!filteredLeads.length" />
       </div>
       <OnboardingCard v-if="!leads.length" />
-    </client-only>
+    </div>
   </div>
 </template>
 
