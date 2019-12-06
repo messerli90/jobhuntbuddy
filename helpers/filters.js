@@ -12,10 +12,11 @@ export function filterLeads (filter, leads) {
   // Search
   if (filter.search !== '') {
     const searchList = []
+    const searchTerm = filter.search.toLowerCase()
     for (let i = 0; i < filteredList.length; i++) {
       if (
-        (filteredList[i].companyName !== null && filteredList[i].companyName.toLowerCase().includes(filter.search)) ||
-        (filteredList[i].jobTitle !== null && filteredList[i].jobTitle.toLowerCase().includes(filter.search))
+        (filteredList[i].companyName !== null && filteredList[i].companyName.toLowerCase().includes(searchTerm)) ||
+        (filteredList[i].jobTitle !== null && filteredList[i].jobTitle.toLowerCase().includes(searchTerm))
       ) {
         searchList.push(filteredList[i])
       }
@@ -31,8 +32,8 @@ export function orderLeads (order, leads) {
 
   if (order === 'createdAt') {
     orderedList.sort(function (a, b) {
-      const unixA = moment(a.createdAt)
-      const unixB = moment(b.createdAt)
+      const unixA = moment(a.createdAt).unix()
+      const unixB = moment(b.createdAt).unix()
       return unixA < unixB ? -1 : 1
     })
   } else {

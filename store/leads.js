@@ -22,7 +22,6 @@ export const mutations = {
   setLeads (state, leads) { state.leads = leads },
   setFilteredLeads (state, leads) { state.filteredLeads = leads },
   setLead (state, lead) { state.lead = lead },
-  setFilter (state, filter) { state.filter = filter },
   setFilterStatus (state, status) { state.filter.status = status },
   setFilterSearch (state, search) { state.filter.search = search },
   clearLeads (state) { state.leads = [] },
