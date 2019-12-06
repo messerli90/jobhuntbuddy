@@ -58,6 +58,12 @@ export const actions = {
   async sendPasswordResetEmail ({ commit }, email) {
     await userRepo.handleSendPasswordResetEmail(email)
   },
+  async changePassword ({ commit }, form) {
+    const oldPassword = form.currentPassword
+    const newPassword = form.newPassword
+
+    await userRepo.handlePasswordChange(oldPassword, newPassword)
+  },
   async setUser ({ commit }, user) {
     const userInfo = {
       name: user.displayName,
