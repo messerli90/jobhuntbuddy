@@ -23,16 +23,14 @@
           >
             Track new lead
           </nuxt-link>
-          <a
+          <nuxt-link
             v-if="authenticated"
-            href="#"
-            class="block px-4 py-2 text-white lg:text-gray-700 font-semibold hover:text-indigo-200"
-            title="Sign out"
-            @click.prevent="logout"
+            to="/profile"
+            class="block px-4 py-2 text-white lg:text-gray-700 font-semibold hover:text-indigo-500"
           >
-            <fa :icon="['fas', 'sign-out-alt']" class="h-4" />
-            <span class="sm:hidden">Sign Out</span>
-          </a>
+            <fa :icon="['fas', 'user-circle']" class="h-4" />
+            <span class="sm:hidden">Profile</span>
+          </nuxt-link>
           <nuxt-link
             v-if="!authenticated"
             to="/auth/signin"
