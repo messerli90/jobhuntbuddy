@@ -1,128 +1,69 @@
 <template>
-  <div class="container p-2 lg:p-0 mb-2 w-full md:w-2/3 lg:w-1/2">
-    <div class="pb-2">
-      <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
-        &lt; Back to Leads
-      </nuxt-link>
-    </div>
-    <div class="rounded shadow bg-white p-4 md:p-8">
-      <h1 class="text-2xl uppercase text-center text-gray-900 font-thin">
-        {{ lead.companyName }}
-      </h1>
-      <h2 class="text-center text-gray-700 font-normal">
-        {{ lead.jobTitle }}
-      </h2>
-      <div class="text-center my-4">
-        <StatusTag :status="lead.status" size="xs" />
-      </div>
-      <hr class="m-6 w-2/3 mx-auto">
-      <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">
-        <div class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Company Website
-          </h5>
-          <a v-if="lead.companyWebsite" :href="lead.companyWebsite" class="text-blue-800">
-            {{ lead.companyWebsite }}
-          </a>
-          <span v-else class="text-gray-500 italic">
-            No website added
-          </span>
+  <div class="container p-2">
+    <div class="flex flex-col lg:flex-row">
+      <div class="w-full lg:w-1/3">
+        <div class="bg-white border-t-2 border-indigo-600 p-4 rounded text-center mb-4">
+          <h2 class="text-2xl text-gray-900">
+            {{ lead.companyName }}
+          </h2>
+          <div class="my-2">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Status
+            </h5>
+            <StatusTag :status="lead.status" />
+          </div>
+          <div class="mt-4">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Company Website
+            </h5>
+            <a :href="lead.companyWebsite" class="block truncate hover:text-indigo-600">
+              {{ lead.companyWebsite }}
+            </a>
+          </div>
+          <div class="mt-4">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Job Listing
+            </h5>
+            <a :href="lead.listingUrl" class="block truncate text-indigo-600 hover:text-indigo-800">
+              Visit Listing
+            </a>
+          </div>
         </div>
-        <div class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Listing URL
-          </h5>
-          <a v-if="lead.listingUrl" :href="lead.listingUrl" class="text-blue-800">
-            {{ lead.listingUrl }}
-          </a>
-          <span v-else class="text-gray-500 italic">
-            No URL added
-          </span>
-        </div>
-        <div v-show="lead.contactName" class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Contact Name
-          </h5>
-          <p class="text-gray-900">
-            {{ lead.contactName }}
-          </p>
-        </div>
-        <div v-show="lead.contactEmail" class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Contact Email
-          </h5>
-          <a :mail-to="lead.contactEmail" class="text-blue-800">
-            {{ lead.contactEmail }}
-          </a>
-        </div>
-      </div>
-      <div class="flex flex-wrap md:flex-row md:justify-around w-full text-sm text-center">
-        <div class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Compensation
-          </h5>
-          <p v-if="lead.compensation" class="text-gray-900">
-            {{ lead.compensation }}
-          </p>
-          <span v-else class="text-gray-500 italic">
-            No compensation specified
-          </span>
-        </div>
-        <div class="w-1/2 lg:w-1/4 px-2 py-3">
-          <h5 class="text-gray-700 font-semibold">
-            Location
-          </h5>
-          <p v-if="lead.location" class="text-gray-900">
-            {{ lead.location }}
-          </p>
-          <span v-else class="text-gray-500 italic">
-            No location specified
-          </span>
+        <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded text-center mb-4">
+          <div class="">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Job title
+            </h5>
+            <p>
+              {{ lead.jobTitle }}
+            </p>
+          </div>
+          <div class="mt-4">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Compensation
+            </h5>
+            <p v-if="lead.compensation">
+              {{ lead.compensation }}
+            </p>
+            <p v-else class="text-gray-600 italic">
+              No compensation...
+            </p>
+          </div>
+          <div class="mt-4">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Location
+            </h5>
+            <p v-if="lead.location">
+              {{ lead.location }}
+            </p>
+            <p v-else class="text-gray-600 italic">
+              No location...
+            </p>
+          </div>
         </div>
       </div>
-      <div class="mx-auto text-sm mt-6">
-        <h5 class="text-gray-700 font-semibold">
-          Notes
-        </h5>
-        <div v-if="lead.notes" class="bg-gray-100 rounded py-2 px-4 mt-2">
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div class="text-gray-800 markdown-style" v-html="compiledMarkdown" />
-        </div>
-        <div v-else class="bg-gray-100 rounded py-2 px-4 mt-2">
-          <span class="text-gray-700 italic">No notes.</span>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
-      <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-700 hover:bg-indigo-800 py-2 px-3 rounded-full text-white md:text-sm mr-2 w-full md:w-auto">
-        Edit Lead
-      </nuxt-link>
-      <div class="relative h-full">
-        <select
-          id="status"
-          v-model="status"
-          class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 md:text-sm py-2 px-3 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
-          @change="handleStatusChange"
-        >
-          <option value="">
-            Quick Status Change
-          </option>
-          <option v-for="s in statuses" :key="s.key" :value="s.key">
-            {{ s.text }}
-          </option>
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-        </div>
-      </div>
-      <div class="mt-4 md:m-auto py-1 px-3 md:flex-grow md:text-right">
-        <a
-          href="#"
-          class="text-sm text-red-800 :hover:text-red-900"
-          @click.prevent="removeCurrent"
-        >
-          Remove
-        </a>
+      <div>
+        main
       </div>
     </div>
   </div>
@@ -163,15 +104,6 @@ export default {
       if (confirmRemove) {
         await this.$store.dispatch('leads/removeLead', this.lead)
         this.$router.push({ path: '/leads' })
-      }
-    },
-    handleStatusChange () {
-      const lead = {
-        ...this.lead
-      }
-      if (this.status !== '') {
-        lead.status = this.status
-        this.$store.dispatch('leads/updateLead', lead)
       }
     }
   }

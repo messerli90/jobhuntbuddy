@@ -26,7 +26,7 @@
           <nuxt-link
             v-if="authenticated"
             to="/profile"
-            class="block px-4 py-2 text-white lg:text-gray-700 font-semibold hover:text-indigo-500"
+            class="block px-4 py-2 text-white lg:text-gray-700 font-semibold hover:text-indigo-600"
           >
             <fa :icon="['fas', 'user-circle']" class="h-4" />
             <span class="sm:hidden">Profile</span>
