@@ -1,31 +1,44 @@
 <template>
   <div class="container w-full lg:w-1/2 p-2">
+    <div class="pb-2">
+      <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
+        &lt; Back to Leads
+      </nuxt-link>
+    </div>
     <div class="w-full">
-      <div class="bg-white border-t-2 border-indigo-600 p-4 rounded text-center mb-4">
-        <div class="flex justify-between items-center">
-          <h2 class="text-3xl text-gray-900">
-            {{ lead.companyName }}
-          </h2>
-          <div class="">
-            <StatusTag :status="lead.status" />
+      <div class="bg-white border-t-2 border-indigo-600 rounded">
+        <div class="flex flex-col lg:flex-row justify-between items-center text-center py-6 lg:py-2 px-8">
+          <div>
+            <h2 class="text-3xl text-indigo-700 mb-2">
+              {{ lead.companyName }}
+            </h2>
+            <div class="">
+              <StatusTag :status="lead.status" />
+            </div>
           </div>
-        </div>
-        <div class="flex justify-around items-center">
-          <div class="mt-4">
-            <h5 class="text-gray-800 font-semibold py-1">
-              Company Website
-            </h5>
-            <a :href="lead.companyWebsite" class="block truncate hover:text-indigo-600">
-              {{ lead.companyWebsite }}
-            </a>
-          </div>
-          <div class="mt-4">
-            <h5 class="text-gray-800 font-semibold py-1">
-              Job Listing
-            </h5>
-            <a :href="lead.listingUrl" class="block truncate text-teal-600 hover:text-teal-800">
-              Visit Listing
-            </a>
+          <div class="pt-8 lg:pt-4 lg:pb-4">
+            <div>
+              <h5 class="text-gray-800 font-semibold py-1">
+                Job Listing
+              </h5>
+              <a v-if="lead.listingUrl" :href="lead.listingUrl" class="block truncate text-teal-600 hover:text-teal-800">
+                Visit Listing
+              </a>
+              <p v-else class="text-gray-600 italic">
+                No listing URL
+              </p>
+            </div>
+            <div>
+              <h5 class="text-gray-800 font-semibold py-1">
+                Company Website
+              </h5>
+              <a v-if="lead.companyWebsite" :href="lead.companyWebsite" class="block truncate text-teal-600 hover:text-teal-800">
+                Visit Company Website
+              </a>
+              <p v-else class="text-gray-600 italic">
+                No website
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -40,8 +53,11 @@
             <h5 class="text-gray-800 font-semibold py-1">
               Job title
             </h5>
-            <p>
+            <p v-if="lead.jobTitle">
               {{ lead.jobTitle }}
+            </p>
+            <p v-else class="text-gray-600 italic">
+              No job title
             </p>
           </div>
           <div class="mt-4">
@@ -52,7 +68,7 @@
               {{ lead.compensation }}
             </p>
             <p v-else class="text-gray-600 italic">
-              No compensation...
+              No compensation
             </p>
           </div>
           <div class="mt-4">
@@ -63,7 +79,7 @@
               {{ lead.location }}
             </p>
             <p v-else class="text-gray-600 italic">
-              No location...
+              No location
             </p>
           </div>
         </div>
@@ -75,8 +91,11 @@
             <h5 class="text-gray-800 font-semibold py-1">
               Contact Name
             </h5>
-            <p>
+            <p v-if="lead.contactName">
               {{ lead.contactName }}
+            </p>
+            <p v-else class="text-gray-600 italic">
+              No HR contact
             </p>
           </div>
           <div class="mt-4">
@@ -87,7 +106,7 @@
               {{ lead.contactEmail }}
             </p>
             <p v-else class="text-gray-600 italic">
-              No contact email...
+              No contact email
             </p>
           </div>
         </div>
@@ -99,7 +118,13 @@
               Notes
             </h2>
             <div class="bg-indigo-100 p-4 rounded">
-              <div class="markdown-style" v-html="compiledMarkdown" />
+              <div v-if="lead.notes" class="">
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <div class="text-gray-800 markdown-style" v-html="compiledMarkdown" />
+              </div>
+              <div v-else class="">
+                <span class="text-gray-700 italic">No notes.</span>
+              </div>
             </div>
           </div>
           <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
@@ -175,6 +200,13 @@ export default {
       if (confirmRemove) {
         await this.$store.dispatch('leads/removeLead', this.lead)
         this.$router.push({ path: '/leads' })
+      }
+    },
+    handleStatusChange () {
+      const lead = { ...this.lead }
+      if (this.status !== '') {
+        lead.status = this.status
+        this.$store.dispatch('leads/updateLead', lead)
       }
     }
   }
