@@ -1,17 +1,16 @@
 <template>
-  <div class="container p-2">
-    <div class="flex flex-col lg:flex-row">
-      <div class="w-full lg:w-1/3">
-        <div class="bg-white border-t-2 border-indigo-600 p-4 rounded text-center mb-4">
-          <h2 class="text-2xl text-gray-900">
+  <div class="container w-full lg:w-1/2 p-2">
+    <div class="w-full">
+      <div class="bg-white border-t-2 border-indigo-600 p-4 rounded text-center mb-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-3xl text-gray-900">
             {{ lead.companyName }}
           </h2>
-          <div class="my-2">
-            <h5 class="text-gray-800 font-semibold py-1">
-              Status
-            </h5>
+          <div class="">
             <StatusTag :status="lead.status" />
           </div>
+        </div>
+        <div class="flex justify-around items-center">
           <div class="mt-4">
             <h5 class="text-gray-800 font-semibold py-1">
               Company Website
@@ -24,12 +23,19 @@
             <h5 class="text-gray-800 font-semibold py-1">
               Job Listing
             </h5>
-            <a :href="lead.listingUrl" class="block truncate text-indigo-600 hover:text-indigo-800">
+            <a :href="lead.listingUrl" class="block truncate text-teal-600 hover:text-teal-800">
               Visit Listing
             </a>
           </div>
         </div>
-        <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded text-center mb-4">
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row">
+      <div class="w-full lg:w-1/3 py-2 lg:pr-2">
+        <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded mb-4">
+          <h2 class="text-indigo-800 text-xl pb-4">
+            Job Details
+          </h2>
           <div class="">
             <h5 class="text-gray-800 font-semibold py-1">
               Job title
@@ -61,9 +67,74 @@
             </p>
           </div>
         </div>
+        <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded mb-4">
+          <h2 class="text-indigo-800 text-xl pb-4">
+            Contact Details
+          </h2>
+          <div class="">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Contact Name
+            </h5>
+            <p>
+              {{ lead.contactName }}
+            </p>
+          </div>
+          <div class="mt-4">
+            <h5 class="text-gray-800 font-semibold py-1">
+              Contact Email
+            </h5>
+            <p v-if="lead.contactEmail">
+              {{ lead.contactEmail }}
+            </p>
+            <p v-else class="text-gray-600 italic">
+              No contact email...
+            </p>
+          </div>
+        </div>
       </div>
-      <div>
-        main
+      <div class="flex-grow py-2 lg:pl-2">
+        <div class="h-full">
+          <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded">
+            <h2 class="text-indigo-800 text-xl pb-4">
+              Notes
+            </h2>
+            <div class="bg-indigo-100 p-4 rounded">
+              <div class="markdown-style" v-html="compiledMarkdown" />
+            </div>
+          </div>
+          <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
+            <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-700 hover:bg-indigo-800 py-2 px-3 rounded-full text-white md:text-sm mr-2 w-full md:w-auto">
+              Edit Lead
+            </nuxt-link>
+            <div class="relative h-full">
+              <select
+                id="status"
+                v-model="status"
+                class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 md:text-sm py-2 px-3 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
+                @change="handleStatusChange"
+              >
+                <option value="">
+                  Quick Status Change
+                </option>
+                <option v-for="s in statuses" :key="s.key" :value="s.key">
+                  {{ s.text }}
+                </option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              </div>
+            </div>
+            <div class="mt-4 md:m-auto py-1 px-3 md:flex-grow md:text-right">
+              <a
+                href="#"
+                class="text-sm text-red-800 :hover:text-red-900"
+                @click.prevent="removeCurrent"
+              >
+                Remove
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
