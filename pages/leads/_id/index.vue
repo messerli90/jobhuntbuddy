@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="flex flex-col lg:flex-row">
-        <div class="w-full lg:w-1/3 py-2 lg:pr-2">
+        <div class="w-full lg:w-1/3 py-2 lg:pr-2 flex-shrink-0">
           <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded mb-4">
             <h2 class="text-indigo-800 text-xl pb-4">
               Job Details
