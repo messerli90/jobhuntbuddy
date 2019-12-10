@@ -1,3 +1,4 @@
+import firebase from 'firebase/app'
 import firebaseApp, { fireDb, twitterAuth, googleAuth } from '~/plugins/firebase'
 
 /**
@@ -134,10 +135,43 @@ async function handleGoogleAuth () {
   return firebaseUser
 }
 
+/**
+ * Reset user password
+ *
+ * @param {String} oldPassword
+ * @param {String} newPassword
+ */
+async function handlePasswordChange (oldPassword, newPassword) {
+  const firebaseUser = firebaseApp.auth().currentUser
+  await _handleReauthenticateWithCredential(firebaseUser, oldPassword)
+
+  firebaseUser.updatePassword(newPassword)
+    .catch((error) => {
+      if (error.code === 'auth/weak-password') {
+        throw new Error(error.message)
+      }
+    })
+}
+
+/**
+ * Re-authenticates a user using a fresh credential.
+ *
+ * @param {firebase.auth.currentUser} firebaseUser
+ * @param {String} password
+ */
+async function _handleReauthenticateWithCredential (firebaseUser, password) {
+  const email = firebaseUser.email
+  const userCredential = firebase.auth.EmailAuthProvider.credential(email, password)
+  await firebaseUser.reauthenticateWithCredential(userCredential).catch((error) => {
+    throw new Error(error.message)
+  })
+}
+
 export {
   registerWithEmailPassword,
   loginWithEmailPassword,
   handleSendPasswordResetEmail,
   handleTwitterAuth,
-  handleGoogleAuth
+  handleGoogleAuth,
+  handlePasswordChange
 }
