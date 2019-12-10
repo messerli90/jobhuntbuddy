@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="py-2 px-4 mb-2 lg:mb-4 bg-white rounded">
-      <ImportExport />
-    </div>
-    <div class="py-2 px-4 my-2 lg:my-4 bg-white rounded">
+    <div id="password-change" class="py-2 px-4 my-2 lg:my-4 bg-white rounded">
       <PasswordChange />
     </div>
     <div class="text-center">
@@ -23,9 +20,8 @@
 
 <script>
 import PasswordChange from '~/components/profile/passwordChange'
-import ImportExport from '~/components/profile/importExport'
 export default {
   layout: 'profile',
-  components: { PasswordChange, ImportExport }
+  components: { PasswordChange }
 }
 </script>
