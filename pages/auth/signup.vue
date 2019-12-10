@@ -89,6 +89,20 @@
                 Passwords must be identical.
               </p>
             </div>
+            <div class="mb-6">
+              <label class="block text-gray-600 font-bold">
+                <input class="mr-2 leading-tight" type="checkbox">
+                <span class="text-sm">
+                  I have read and accept the
+                  <nuxt-link to="/policy/terms" class="text-indigo-600">
+                    Term of Service
+                  </nuxt-link>
+                </span>
+              </label>
+              <p v-if="$v.form.password.$error && !$v.form.password.required" class="text-red-300 text-xs italic">
+                You must accept the ToS to continue
+              </p>
+            </div>
             <button
               type="submit"
               class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
@@ -141,7 +155,8 @@ export default {
         name: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        terms: false
       }
     }
   },
@@ -153,6 +168,9 @@ export default {
       email: {
         required,
         email
+      },
+      terms: {
+        required
       },
       password: {
         required,
