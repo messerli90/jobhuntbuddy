@@ -3,17 +3,17 @@
     <div class="container pt-8 pb-16 md:pt-32 md:pb-32">
       <div class="flex flex-col justify-center items-center text-center px-4">
         <h1 class="font-semibold text-gray-900 text-4xl pt-8 md:pt-16 md:pb-2">
-          It's how you find a job.
+          It's how you manage the job hunt.
         </h1>
         <p class="text-gray-700 text-xl md:pb-4">
-          Manage your job search by tracking leads and staying on top of the hunt.
+          Organize your job search by tracking leads and staying on top of the hunt.
         </p>
-        <CTABtn target="/auth/signup" title="Get started for free" size="xl" class="py-4" />
+        <CTABtn target="/auth/signup" title="Track your first lead" size="xl" class="py-4" />
       </div>
     </div>
     <div class="w-full relative bg-indigo-500 py-16">
       <h3 class="text-white text-3xl text-center">
-        Manage your leads
+        Track your leads
       </h3>
       <h5 class="text-indigo-200 text-xl text-center mb-8">
         See all of your potential jobs in one place and track their status
@@ -78,10 +78,10 @@
         What are you waiting for?
       </h3>
       <h5 class="text-gray-600 text-lg text-center mb-4">
-        It's how you find a job!
+        It's how you manage the job hunt!
       </h5>
       <div class="flex justify-center">
-        <CTABtn target="/auth/signup" title="Get started for free" size="2xl" class="py-4" />
+        <CTABtn target="/auth/signup" title="Track your first lead" size="2xl" class="py-4" />
       </div>
     </div>
   </div>

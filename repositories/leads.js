@@ -10,10 +10,9 @@ async function list (userId) {
       return []
     }
     snap.forEach((doc) => {
-      leads.push({
-        id: doc.id,
-        ...doc.data()
-      })
+      const lead = { ...doc.data() }
+      lead.id = doc.id
+      leads.push(lead)
     })
   } catch (e) {
   }
@@ -26,10 +25,8 @@ async function show (userId, leadId) {
   let lead
   try {
     const snap = await ref.get()
-    lead = {
-      id: snap.id,
-      ...snap.data()
-    }
+    lead = { ...snap.data() }
+    lead.id = snap.id
   } catch (e) {
     throw new Error(e.code)
   }
@@ -40,19 +37,16 @@ async function create (userId, lead) {
   const ref = fireDb.collection(`users/${userId}/leads`).doc()
   let doc
   try {
-    const newLead = {
-      ...lead,
-      createdAt: new Date()
-    }
-    await ref.set(newLead)
+    lead.createdAt = new Date()
+    await ref.set(lead)
     doc = await ref.get()
   } catch (e) {
     throw new Error(e.code)
   }
-  return {
-    id: doc.id,
-    ...doc.data
-  }
+  const newLead = { ...doc.data() }
+  newLead.id = doc.id
+
+  return newLead
 }
 
 async function update (userId, lead) {
@@ -65,10 +59,10 @@ async function update (userId, lead) {
   } catch (e) {
     throw new Error(e.code)
   }
-  return {
-    id: doc.id,
-    ...doc.data()
-  }
+  const newLead = { ...doc.data() }
+  newLead.id = doc.id
+
+  return newLead
 }
 
 async function remove (userId, lead) {
