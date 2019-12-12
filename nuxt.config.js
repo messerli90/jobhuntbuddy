@@ -6,15 +6,15 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: 'JobHuntBuddy | It\'s how you find the job.',
+    title: 'JobHuntBuddy',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || 'Manage your job search by tracking leads and staying on top of the hunt.' },
       { hid: 'msAppTileColor', name: 'msapplication-TileColor', content: '#434190' },
       { hid: 'themeColor', name: 'theme-color', content: '#434190' },
-      { hid: 'ogtitle', property: 'og:title', content: 'It\'s how you find a job!' },
-      { hid: 'ogdescription', property: 'og:description', content: 'Manage your job search by tracking leads and staying on top of the hunt.' },
+      { hid: 'ogtitle', property: 'og:title', content: 'It\'s how you manage the job hunt!' },
+      { hid: 'ogdescription', property: 'og:description', content: 'Organize your job search by tracking leads and staying on top of the hunt.' },
       { hid: 'ogimage', property: 'og:image', content: 'https://jobhuntbuddy.co/images/screenshot_leads_list.png' },
       { hid: 'ogsite_name', property: 'og:site_name', content: 'JobHuntBuddy' },
       { hid: 'ogurl', property: 'og:url', content: 'https://jobhuntbuddy.co' },
