@@ -1,4 +1,5 @@
 import path from 'path'
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -28,6 +29,15 @@ export default {
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#434190' }
     ]
+  },
+  env: {
+    fireApiKey: process.env.FIREBASE_API || '',
+    fireAuthDomain: process.env.FIREBASE_AUTH_DOMAIN || '',
+    fireDatabaseUrl: process.env.FIREBASE_DB_URL || '',
+    fireProjectId: process.env.FIREBASE_PROJECT_ID || '',
+    fireStorageBucket: process.env.FIREBASE_STORAGE_BUCKET || '',
+    fireMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || '',
+    fireAppId: process.env.FIREBASE_APP_ID || ''
   },
   /*
   ** Customize the progress-bar color

@@ -3,13 +3,13 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDF3IralvpqS0dqggjyfdPUbRbfJ2bOcQo',
-  authDomain: 'job-hunt-buddy.firebaseapp.com',
-  databaseURL: 'https://job-hunt-buddy.firebaseio.com',
-  projectId: 'job-hunt-buddy',
-  storageBucket: 'job-hunt-buddy.appspot.com',
-  messagingSenderId: '455609997246',
-  appId: '1:455609997246:web:dbc193c4ab01efea670bef'
+  apiKey: String(process.env.fireApiKey),
+  authDomain: String(process.env.fireAuthDomain),
+  databaseURL: String(process.env.fireDatabaseUrl),
+  projectId: String(process.env.fireProjectId),
+  storageBucket: String(process.env.fireStorageBucket),
+  messagingSenderId: String(process.env.fireMessagingSenderId),
+  appId: String(process.env.fireAppId)
 }
 
 export default !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
