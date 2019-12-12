@@ -54,12 +54,6 @@ export default {
     return {
       isOpen: false
     }
-  },
-  methods: {
-    async logout () {
-      await this.$store.dispatch('users/logout')
-      this.$router.push('/')
-    }
   }
 }
 </script>

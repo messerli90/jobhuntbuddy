@@ -22,6 +22,12 @@
 import PasswordChange from '~/components/profile/passwordChange'
 export default {
   layout: 'profile',
-  components: { PasswordChange }
+  components: { PasswordChange },
+  methods: {
+    async logout () {
+      await this.$store.dispatch('users/logout')
+      this.$router.push('/')
+    }
+  }
 }
 </script>
