@@ -17,8 +17,8 @@
               <input
                 id="email"
                 v-model.trim="$v.form.email.$model"
-                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 :class="{ 'border-red-300': $v.form.email.$error }"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 type="email"
                 placeholder=""
               >
@@ -27,10 +27,10 @@
               </p>
             </div>
             <button
-              type="submit"
-              class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
               :class="{ 'bg-gray-200': sending }"
               :disabled="!!sending"
+              type="submit"
+              class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
             >
               {{ sending ? 'Signing in...' : 'Sign in' }}
             </button>

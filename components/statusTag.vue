@@ -1,5 +1,5 @@
 <template>
-  <span class="rounded-full px-3 py-2 font-semibold text-center" :class="classes">
+  <span :class="classes" class="rounded-full px-3 py-2 font-semibold text-center">
     {{ title }}
   </span>
 </template>

@@ -7,7 +7,7 @@
           <!-- <img src="@/assets/logo2.svg" alt="" class="h-8"> -->
         </nuxt-link>
         <div class="sm:hidden">
-          <button type="button" class="block text-gray-500 hover:text-white focus:text-white" @click="isOpen = !isOpen">
+          <button @click="isOpen = !isOpen" type="button" class="block text-gray-500 hover:text-white focus:text-white">
             <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
               <path
                 v-if="isOpen"
@@ -39,10 +39,10 @@
         </nuxt-link>
         <a
           v-if="authenticated"
+          @click.prevent="logout"
           href="#"
           class="block mt-1 px-2 py-2 text-white font-semibold hover:bg-gray-800 rounded sm:mt-0 sm:ml-2"
           title="Sign out"
-          @click.prevent="logout"
         >
           <fa :icon="['fas', 'sign-out-alt']" class="h-4" />
           <span class="sm:hidden">Sign Out</span>
