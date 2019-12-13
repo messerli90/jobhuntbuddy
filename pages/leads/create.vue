@@ -11,7 +11,7 @@
         <br>
         <span class="font-medium">{{ form.companyName }}</span>
       </h1>
-      <form class="w-full px-4" @submit.prevent="saveLead">
+      <form @submit.prevent="saveLead" class="w-full px-4">
         <div class="flex flex-wrap -mx-3 mb-3">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
@@ -23,8 +23,8 @@
             <input
               id="company-name"
               v-model.trim="$v.form.companyName.$model"
-              class="text-input"
               :class="{ 'border-red-500': $v.form.companyName.$error }"
+              class="text-input"
               type="text"
               placeholder="Hooli"
             >
@@ -203,7 +203,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn mb-4" :class="{ 'bg-gray-200': saving }" :disabled="!!saving">
+        <button :class="{ 'bg-gray-200': saving }" :disabled="!!saving" type="submit" class="btn mb-4">
           Save Lead
         </button>
       </form>

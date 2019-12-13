@@ -6,10 +6,10 @@
     <div class="text-center">
       <a
         v-if="authenticated"
+        @click.prevent="logout"
         href="#"
         class="text-gray-700 font-semibold hover:text-indigo-500"
         title="Sign out"
-        @click.prevent="logout"
       >
         <fa :icon="['fas', 'sign-out-alt']" class="h-4" />
         <span>Sign Out</span>
