@@ -3,6 +3,6 @@ import Index from '@/pages/Index'
 describe('Index Page', () => {
   it('should display a welcome message', () => {
     const wrapper = shallowMount(Index)
-    expect(wrapper.text()).toContain('Welcome')
+    expect(wrapper.text()).toContain('how you manage')
   })
 })
