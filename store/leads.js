@@ -28,8 +28,9 @@ export const mutations = {
   addLead (state, lead) { state.leads.push(lead) },
 
   removeLead (state, lead) {
-    const i = state.leads.indexOf(lead)
-    state.leads.splice(i, 1)
+    state.leads = state.leads.filter((l) => {
+      return l.id !== lead.id
+    })
   },
   setAttribute (state, obj) {
     state.lead[obj.attr] = obj.val
