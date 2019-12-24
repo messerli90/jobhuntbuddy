@@ -1,12 +1,15 @@
 language: node_js
 
+node_js:
+  - 13
+
 branches:
   only:
     - master
     - dev
 
 install:
-  - yarn
+  - yarn install
 
 script:
   - yarn run build
