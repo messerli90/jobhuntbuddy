@@ -17,8 +17,8 @@
               <input
                 id="name"
                 v-model.trim="$v.form.name.$model"
-                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 :class="{ 'border-red-300': $v.form.name.$error }"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 type="name"
                 placeholder=""
               >
@@ -36,8 +36,8 @@
               <input
                 id="email"
                 v-model.trim="$v.form.email.$model"
-                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 :class="{ 'border-red-300': $v.form.email.$error }"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 type="email"
                 placeholder=""
               >
@@ -58,8 +58,8 @@
               <input
                 id="password"
                 v-model.trim="$v.form.password.$model"
-                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 :class="{ 'border-red-300': $v.form.password.$error }"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 type="password"
                 placeholder=""
               >
@@ -80,8 +80,8 @@
               <input
                 id="password_confirmation"
                 v-model.trim="$v.form.passwordConfirmation.$model"
-                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 :class="{ 'border-red-300': $v.form.passwordConfirmation.$error }"
+                class="h-12 p-4 mb-1 w-full bg-white border-2 border-gray-300 rounded"
                 type="password"
                 placeholder=""
               >
@@ -104,10 +104,10 @@
               </p>
             </div>
             <button
-              type="submit"
-              class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
               :class="{ 'bg-gray-200': sending }"
               :disabled="!!sending"
+              type="submit"
+              class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
             >
               Register
             </button>
@@ -115,16 +115,16 @@
               Or use your social accounts
             </p>
             <button
+              @click.prevent="loginWithTwitter"
               type="button"
               class="btn--twitter font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full my-1"
-              @click.prevent="loginWithTwitter"
             >
               Sign in with Twitter
             </button>
             <button
+              @click.prevent="loginWithGoogle"
               type="button"
               class="btn--google font-semibold px-5 py-2 text-white h:text-white relative text-base inline-block rounded text-center w-full my-1"
-              @click.prevent="loginWithGoogle"
             >
               Sign in with Google
             </button>

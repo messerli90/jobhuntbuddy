@@ -124,7 +124,7 @@
               <div class="bg-indigo-100 p-4 rounded">
                 <div v-if="lead.notes" class="">
                   <!-- eslint-disable-next-line vue/no-v-html -->
-                  <div class="text-gray-800 markdown-style" v-html="compiledMarkdown" />
+                  <div v-html="compiledMarkdown" class="text-gray-800 markdown-style" />
                 </div>
                 <div v-else class="">
                   <span class="text-gray-700 italic">No notes.</span>
@@ -139,8 +139,8 @@
                 <select
                   id="status"
                   v-model="status"
-                  class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 md:text-sm py-2 px-3 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
                   @change="handleStatusChange"
+                  class="block w-full md:w-auto appearance-none bg-white md:h-full text-gray-700 md:text-sm py-2 px-3 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500 my-2 md:my-auto"
                 >
                   <option value="">
                     Quick Status Change
@@ -155,9 +155,9 @@
               </div>
               <div class="mt-4 md:m-auto py-1 px-3 md:flex-grow md:text-right">
                 <a
+                  @click.prevent="removeCurrent"
                   href="#"
                   class="text-sm text-red-800 :hover:text-red-900"
-                  @click.prevent="removeCurrent"
                 >
                   Remove
                 </a>

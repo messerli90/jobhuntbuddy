@@ -67,10 +67,10 @@
         </div>
         <div class="w-full mt-2">
           <button
-            type="submit"
-            class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
             :class="{ 'bg-gray-200': sending }"
             :disabled="!!sending"
+            type="submit"
+            class="bg-indigo-500 hover:bg-indigo-600 font-semibold px-5 py-4 text-white h:text-white relative text-base inline-block rounded text-center w-full"
           >
             Change Password
           </button>

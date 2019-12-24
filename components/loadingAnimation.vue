@@ -5,7 +5,7 @@
       <div />
       <div />
     </div>
-    <span class="py-4 text-gray-800" :class="textSizeClass">
+    <span :class="textSizeClass" class="py-4 text-gray-800">
       {{ text }}
     </span>
   </div>

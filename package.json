@@ -24,6 +24,7 @@
     "@nuxtjs/google-analytics": "^2.2.2",
     "@nuxtjs/moment": "^1.4.0",
     "cookieparser": "^0.1.0",
+    "core-js": "^2.0.0",
     "firebase": "^7.3.0",
     "firebase-admin": "^8.7.0",
     "js-cookie": "^2.2.1",
