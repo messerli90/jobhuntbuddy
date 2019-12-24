@@ -6,7 +6,7 @@ branches:
     - dev
 
 install:
-  - yarn install
+  - yarn
 
 script:
   - yarn run build
