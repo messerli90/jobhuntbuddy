@@ -13,4 +13,4 @@ install:
 
 script:
   - yarn run build
-  - nuxt start
+  - yarn test
