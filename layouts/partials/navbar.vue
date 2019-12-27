@@ -14,31 +14,44 @@
             <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
           </button>
         </div>
-        <div :class="isOpen ? 'block' : 'hidden'" class="w-full  flex-grow bg-indigo-700 lg:bg-transparent lg:flex lg:items-center justify-end lg:w-auto rounded-b rounded-tl">
-          <CTABtn v-if="authenticated" target="/leads/create" title="Track New Lead" class="hidden lg:block" />
-          <nuxt-link
-            v-if="authenticated"
-            to="/leads/create"
-            class="block px-4 py-2 lg:hidden text-white font-semibold"
-          >
-            Track new lead
-          </nuxt-link>
-          <nuxt-link
-            v-if="authenticated"
-            to="/profile"
-            class="block px-4 py-2 text-white lg:text-gray-700 font-semibold hover:text-indigo-600"
-          >
-            <fa :icon="['fas', 'user-circle']" class="h-4" />
-            <span class="sm:hidden">Profile</span>
-          </nuxt-link>
-          <nuxt-link
-            v-if="!authenticated"
-            to="/auth/signin"
-            class="block py-2 text-center text-white lg:text-gray-700 font-semibold hover:text-teal-200 lg:hover:text-indigo-700 mr-6"
-          >
-            Sign In
-          </nuxt-link>
-          <CTABtn v-if="!authenticated" target="/auth/signup" title="Get Started" />
+        <!-- <div :class="isOpen ? 'block' : 'hidden'" class="w-full flex-grow bg-indigo-700 lg:bg-transparent lg:flex lg:items-center justify-end lg:w-auto rounded-b rounded-tl"> -->
+        <div :class="isOpen ? 'block' : 'hidden'" class="w-full lg:w-auto bg-indigo-700 lg:bg-transparent rounded-b-lg px-4 py-2 lg:flex lg:flex-row lg:flex-grow justify-between items-center">
+          <div id="nav-left">
+            <nuxt-link
+              v-if="authenticated"
+              :class="{ 'lg:text-indigo-700': $route.path === '/leads' }"
+              to="/leads"
+              class="block my-2 lg:px-4 text-white lg:text-gray-800 lg:hover:text-indigo-700 font-semibold lg:text-lg"
+            >
+              Leads
+            </nuxt-link>
+          </div>
+          <div id="nav-right" class="mt-4 flex flex-col lg:flex-row lg:items-center">
+            <CTABtn v-if="authenticated" target="/leads/create" title="Track New Lead" class="hidden lg:block lg:mx-1" />
+            <nuxt-link
+              v-if="authenticated"
+              to="/leads/create"
+              class="block my-2 lg:mx-3 lg:hidden text-white font-semibold"
+            >
+              Track new lead
+            </nuxt-link>
+            <nuxt-link
+              v-if="authenticated"
+              to="/profile"
+              class="block my-2 lg:mx-1 text-white lg:text-gray-700 font-semibold hover:text-indigo-600"
+            >
+              <fa :icon="['fas', 'user-circle']" class="h-4 hidden lg:block" />
+              <span class="lg:hidden">Profile</span>
+            </nuxt-link>
+            <nuxt-link
+              v-if="!authenticated"
+              to="/auth/signin"
+              class="block py-2 lg:mx-1 text-center text-white lg:text-gray-700 font-semibold hover:text-teal-200 lg:hover:text-indigo-700 mr-6"
+            >
+              Sign In
+            </nuxt-link>
+            <CTABtn v-if="!authenticated" target="/auth/signup" title="Get Started" />
+          </div>
         </div>
       </div>
     </div>
