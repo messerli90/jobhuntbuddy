@@ -1,5 +1,5 @@
 <template>
-  <div class="container w-full lg:w-1/2 p-2">
+  <div class="container w-full xl:w-2/3 p-2">
     <div class="pb-2">
       <nuxt-link to="/leads" class="text-gray-600 hover:text-indigo-800">
         &lt; Back to Leads
@@ -13,7 +13,7 @@
         <div class="bg-white border-t-2 border-indigo-600 rounded">
           <div class="flex flex-col lg:flex-row justify-between items-center text-center py-6 lg:py-2 px-8">
             <div>
-              <h2 class="text-3xl text-indigo-700 mb-2">
+              <h2 class="text-3xl text-indigo-800 mb-2">
                 {{ lead.companyName }}
               </h2>
               <div class="">
@@ -117,7 +117,8 @@
         </div>
         <div class="flex-grow py-2 lg:pl-2">
           <div class="h-full">
-            <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded">
+            <NotificationCard :lead-id="lead.id" />
+            <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded my-2">
               <h2 class="text-indigo-800 text-xl pb-4">
                 Notes
               </h2>
@@ -132,7 +133,7 @@
               </div>
             </div>
             <div class="flex flex-col md:flex-row md:justify-between w-full py-4 text-center">
-              <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-700 hover:bg-indigo-800 py-2 px-3 rounded-full text-white md:text-sm mr-2 w-full md:w-auto">
+              <nuxt-link :to="'/leads/' + lead.id + '/edit'" class="bg-indigo-600 hover:bg-indigo-700 py-2 px-3 rounded-full text-white md:text-sm mr-2 w-full md:w-auto">
                 Edit Lead
               </nuxt-link>
               <div class="relative h-full">
@@ -174,9 +175,10 @@
 import marked from 'marked'
 import StatusTag from '~/components/statusTag'
 import LoadingAnimation from '~/components/loadingAnimation'
+import NotificationCard from '~/components/lead/notificationCard'
 import { STATUSES } from '~/helpers/leads'
 export default {
-  components: { StatusTag, LoadingAnimation },
+  components: { StatusTag, LoadingAnimation, NotificationCard },
   data () {
     return {
       status: ''
