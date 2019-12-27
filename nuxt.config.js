@@ -82,7 +82,7 @@ export default {
         // you must have it in your node_modules to actually import
         {
           set: '@fortawesome/free-solid-svg-icons',
-          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight', 'faChevronDown', 'faSortAmountDown', 'faUserCircle']
+          icons: ['faHeart', 'faSignOutAlt', 'faChevronRight', 'faChevronDown', 'faSortAmountDown', 'faUserCircle', 'faCheck']
         }
       ]
     }]

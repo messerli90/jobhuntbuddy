@@ -117,7 +117,7 @@
         </div>
         <div class="flex-grow py-2 lg:pl-2">
           <div class="h-full">
-            <NotificationCard :lead-id="lead.id" />
+            <ReminderList :lead-id="lead.id" />
             <div class="bg-white border-t-2 border-indigo-600 p-4 w-full rounded my-2">
               <h2 class="text-indigo-800 text-xl pb-4">
                 Notes
@@ -175,10 +175,10 @@
 import marked from 'marked'
 import StatusTag from '~/components/statusTag'
 import LoadingAnimation from '~/components/loadingAnimation'
-import NotificationCard from '~/components/lead/notificationCard'
+import ReminderList from '~/components/lead/reminders/reminderList'
 import { STATUSES } from '~/helpers/leads'
 export default {
-  components: { StatusTag, LoadingAnimation, NotificationCard },
+  components: { StatusTag, LoadingAnimation, ReminderList },
   data () {
     return {
       status: ''

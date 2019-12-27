@@ -13,12 +13,11 @@
           </p>
         </div>
         <div v-else>
-          <div v-for="r in reminders" :key="r.text" class="p-1 hover:bg-gray-200 rounded">
-            <p>
-              <span class="text-gray-600 text-sm mr-2">{{ humanDate(r) }}</span>
-              {{ r.text }}
-            </p>
-          </div>
+          <ul>
+            <transition-group name="list" tag="li">
+              <ReminderItem v-for="r in reminders" :key="r.id" :reminder="r" />
+            </transition-group>
+          </ul>
         </div>
         <form @submit.prevent="addReminder" class="w-full pt-4">
           <div
@@ -65,7 +64,9 @@
 
 <script>
 import moment from 'moment'
+import ReminderItem from '~/components/lead/reminders/reminderItem'
 export default {
+  components: { ReminderItem },
   props: {
     leadId: {
       type: String,

@@ -10,7 +10,9 @@ async function list (userId) {
       return []
     }
     snap.forEach((doc) => {
-      reminders.push(doc.data())
+      const reminder = { ...doc.data() }
+      reminder.id = doc.id
+      reminders.push(reminder)
     })
   } catch (e) {
     throw new Error(e)
@@ -25,13 +27,26 @@ async function create (reminder) {
     reminder.createdAt = new Date()
     const doc = await ref.add(reminder)
     const snap = await doc.get()
-    return snap.data()
+    const newReminder = { ...snap.data() }
+    newReminder.id = doc.id
+    return newReminder
   } catch (e) {
     throw new Error(e)
   }
 }
 
+async function remove (reminder) {
+  const ref = fireDb.collection('reminders/').doc(reminder.id)
+
+  try {
+    await ref.delete()
+  } catch (e) {
+    throw new Error(e.code)
+  }
+}
+
 export {
   list,
-  create
+  create,
+  remove
 }
