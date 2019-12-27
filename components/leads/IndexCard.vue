@@ -1,6 +1,6 @@
 <template>
-  <div :class="'border-'+statusObj.baseColor+'-500'" class="card flex items-center justify-between bg-gray-100 p-6 shadow-md hover:shadow-lg rounded border-l-2 mb-3">
-    <div class="w-3/5 flex-grow-0">
+  <div :class="'border-'+statusObj.baseColor+'-500'" class="card flex justify-between bg-gray-100 shadow-md hover:shadow-lg rounded border-l-2 mb-3">
+    <div class="w-3/5 flex-grow-0 p-6">
       <h2 class="font-semibold text-lg text-gray-900 truncate">
         {{ lead.companyName }}
       </h2>
@@ -8,13 +8,15 @@
         {{ lead.jobTitle }}
       </h3>
     </div>
-    <div class="flex-shrink-0">
+    <div class="flex-shrink-0 min-h-full flex flex-col justify-between p-4 pb-2">
       <StatusTag :status="lead.status" size="xs" class="break-words" />
+      <span class="text-xs text-gray-600">Added {{ createdDate }}</span>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 import { STATUSES } from '~/helpers/leads'
 import StatusTag from '~/components/statusTag'
 export default {
@@ -28,6 +30,12 @@ export default {
   computed: {
     statusObj () {
       return STATUSES.find(s => s.key === this.lead.status)
+    },
+    createdDate () {
+      if (this.lead.createdAt) {
+        return moment.unix(this.lead.createdAt.seconds).fromNow()
+      }
+      return ''
     }
   }
 }

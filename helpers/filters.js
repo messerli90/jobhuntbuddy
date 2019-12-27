@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 export function filterLeads (filter, leads) {
   let filteredList = [...leads]
 
@@ -32,9 +30,9 @@ export function orderLeads (order, leads) {
 
   if (order === 'createdAt') {
     orderedList.sort(function (a, b) {
-      const unixA = moment(a.createdAt).unix()
-      const unixB = moment(b.createdAt).unix()
-      return unixA < unixB ? -1 : 1
+      const unixA = a.createdAt ? a.createdAt.seconds : '9999999999'
+      const unixB = b.createdAt ? b.createdAt.seconds : '9999999999'
+      return unixA > unixB ? -1 : 1
     })
   } else {
     orderedList.sort(function (a, b) {
