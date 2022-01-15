@@ -30,7 +30,7 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "lodash.merge": "^4.6.2",
-    "marked": "^0.7.0",
+    "marked": "^4.0.10",
     "nuxt": "^2.0.0",
     "nuxt-fontawesome": "^0.4.0",
     "tailwindcss": "^1.1.3",
